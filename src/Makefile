@@ -1,10 +1,19 @@
-all: JTalkTest.class
+CFLAGS = -Djava.ext.dirs=lib
+SERVER = JTalk/server/
+TARGET = \
+	$(SERVER)DatabaseCreator.class \
+	$(SERVER)DatabaseCreatorTest.class
 
-JTalkTest.class: JTalkTest.java
-	@ javac JTalkTest.java
+all: $(TARGET)
+
+$(SERVER)DatabaseCreator.class: $(SERVER)DatabaseCreator.java
+	@ javac $(SERVER)DatabaseCreator.java
+
+$(SERVER)DatabaseCreatorTest.class: $(SERVER)DatabaseCreator.java $(SERVER)DatabaseCreatorTest.java
+	@ javac $(SERVER)DatabaseCreatorTest.java
 
 run:
-	@ java JTalkTest
+	@ java $(CFLAGS) $(SERVER)DatabaseCreatorTest
 
 clean:
-	@ rm JTalkTest.class
+	@ rm $(TARGET)
