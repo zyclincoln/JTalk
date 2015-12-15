@@ -10,7 +10,7 @@ class DatabaseCreator {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection(
-				"jdbc:mysql://localhost/", "root", "");
+				"jdbc:mysql://localhost/JTalk", "root", "");
 			DatabaseMetaData databaseMetaData = connection.getMetaData();
 		} catch(SQLException exception) {
 			System.out.println(exception);
