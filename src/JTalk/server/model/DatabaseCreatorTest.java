@@ -1,4 +1,4 @@
-package JTalk.server;
+package JTalk.server.model;
 
 import java.sql.*;
 

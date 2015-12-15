@@ -1,4 +1,4 @@
-package JTalk.server;
+package JTalk.server.model;
 
 import java.sql.*;
 
@@ -14,7 +14,7 @@ class DatabaseCreator {
 			DatabaseMetaData databaseMetaData = connection.getMetaData();
 		} catch(SQLException exception) {
 			System.out.println(exception);
-		} catch(ClassNotFoundException exception) {
+		} catch(Exception exception) {
 			System.out.println(exception);
 		}
 	}

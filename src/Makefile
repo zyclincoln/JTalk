@@ -1,16 +1,19 @@
 CFLAGS = -Djava.ext.dirs=lib
-SERVER = JTalk/server/
+SERVER = JTalk/server/model/
 TARGET = \
-#	$(SERVER)DatabaseCreator.class \
-#	$(SERVER)DatabaseCreatorTest.class
+	$(SERVER)DatabaseCreator.class \
+	$(SERVER)DatabaseCreatorTest.class
 
 all: $(TARGET)
 
-#$(SERVER)DatabaseCreator.class: $(SERVER)DatabaseCreator.java
-#	@ javac $(SERVER)DatabaseCreator.java
+$(SERVER)DatabaseCreator.class: $(SERVER)DatabaseCreator.java
+	@ javac $(SERVER)DatabaseCreator.java
 
-#$(SERVER)DatabaseCreatorTest.class: $(SERVER)DatabaseCreator.java $(SERVER)DatabaseCreatorTest.java
-#	@ javac $(SERVER)DatabaseCreatorTest.java
+$(SERVER)DatabaseCreatorTest.class: $(SERVER)DatabaseCreator.java $(SERVER)DatabaseCreatorTest.java
+	@ javac $(SERVER)DatabaseCreatorTest.java
+
+run:
+	@ java $(CFLAGS) $(SERVER)DatabaseCreatorTest
 
 clean:
 	@ rm $(TARGET)
