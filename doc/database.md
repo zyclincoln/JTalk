@@ -13,13 +13,21 @@ class CheckResult {
 }
 
 login
-	CheckResult check(id, pwd, logintime, liginip);
+	CheckResult check(id, pwd, logintime, loginip);
+	
+	CheckResult implements Message{
+		int result;
+		String causeinfo;
+		String toMessage();
+		logintime;
+		loginip;
+	}
 
 add account
 	AddAccount(name, pwd);
 
 search info
-	(ID, Name) SearchInfo(ID);
+	Name SearchInfo(ID);
 
 ===========================
 
