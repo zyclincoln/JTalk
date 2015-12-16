@@ -98,13 +98,19 @@ class DeleteMessageResult implements Message {
 
 class JTDBOfflineMessage {
 	private Connection connection;
-	private Statement statement;
+	private PreparedStatement statement_get_message;
+	private PreparedStatement statement_add_message;
+	private PreparedStatement statement_delete_message;
 
 	JTDBOfflineMessage(Connection connection) {
 		this.connection = connection;
 		try {
-			this.statement = connection.createStatement();
-		} catch(Exception exception) {}
+			this.statement_get_message = connection.prepareStatement("select * from OfflineMessage?");
+			this.statement_add_message = connection.prepareStatement("insert into OfflineMessage? values(?, ?, ?, ?)");
+			this.statement_delete_message = connection.prepareStatement("delete from OfflineMessage? where message_id = ?");
+		} catch(Exception exception) {
+			System.out.println(exception);
+		}
 	}
 
 	void Init() {
@@ -119,7 +125,8 @@ class JTDBOfflineMessage {
 		try {
 			ResultSet result_set = connection.getMetaData().getTables(null, null, "OfflineMessage" + id, null );
 			if(result_set.next()) {
-				result_set = statement.executeQuery("select * from OfflineMessage" + id);
+				statement_get_message.setInt(1, id);
+				result_set = statement_get_message.executeQuery();
 				ArrayList<OfflineMessage> offline_message = new ArrayList<OfflineMessage>();
 				while(result_set.next())
 					offline_message.add(new OfflineMessage(result_set.getInt(1), result_set.getInt(2), result_set.getLong(3), result_set.getString(4)));
@@ -136,7 +143,12 @@ class JTDBOfflineMessage {
 		try {
 			ResultSet result_set = connection.getMetaData().getTables(null, null, "OfflineMessage" + id, null );
 			if(result_set.next()) {
-				statement.executeUpdate("insert into OfflineMessage" + id + " values(" + offline_message.sender_id + ", " +  offline_message.message_id + ", '" + offline_message.time + "', '" + offline_message.content + "')");
+				statement_add_message.setInt(1, id);
+				statement_add_message.setInt(2, offline_message.sender_id);
+				statement_add_message.setInt(3, offline_message.message_id);
+				statement_add_message.setLong(4, offline_message.time);
+				statement_add_message.setString(5, offline_message.content);
+				statement_add_message.executeUpdate();
 				return new AddMessageResult(0, null);
 			} else {
 				return new AddMessageResult(1, null);
@@ -150,7 +162,9 @@ class JTDBOfflineMessage {
 		try {
 			ResultSet result_set = connection.getMetaData().getTables(null, null, "OfflineMessage" + id, null );
 			if(result_set.next()) {
-				statement.executeUpdate("delete from OfflineMessage" + id + " where message_id = " + message_id);
+				statement_delete_message.setInt(1, id);
+				statement_delete_message.setInt(2, message_id);
+				statement_delete_message.executeUpdate();
 				return new DeleteMessageResult(0, null);
 			} else {
 				return new DeleteMessageResult(1, null);
@@ -175,20 +189,17 @@ class JTDBOfflineMessage {
 
 			GetMessageResult get_message_result = db_offline_message.GetMessage(0);
 			System.out.println(get_message_result.toMessage());
-			if(get_message_result.result_number == 0) {
-				for(int i = 0; i < get_message_result.offline_message.size(); i++) {
+			if(get_message_result.result_number == 0)
+				for(int i = 0; i < get_message_result.offline_message.size(); i++)
 					System.out.println(get_message_result.offline_message.get(i));
-				}
-			}
 			System.out.println();
 
 			for(int i = 1; i < 10; i++) {
 				DeleteMessageResult delete_message_result = db_offline_message.DeleteMessage(0, i);
 				System.out.println(delete_message_result.toMessage());	
 			}
- 		} catch(SQLException exception) {
-			System.out.println(exception);
-		} catch(ClassNotFoundException exception) {
+			System.out.println();
+ 		} catch(Exception exception) {
 			System.out.println(exception);
 		}
 	}

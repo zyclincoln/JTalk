@@ -1,5 +1,5 @@
 package JTalk.server.util;
 
-interface Message {
+public interface Message {
 	public String toMessage();
 }

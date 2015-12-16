@@ -2,15 +2,15 @@ CFLAGS = -Djava.ext.dirs=lib
 ROOT = JTalk/
 SERVER = $(ROOT)server/
 MODEL = $(SERVER)model/
-TARGET = $(MODEL)JTDBOfflineMessage.class
+TARGET = $(MODEL)JTDBFriend.class
 
 all: $(TARGET)
 
-$(TARGET):  $(MODEL)JTDBOfflineMessage.java
-	@ javac $(MODEL)JTDBOfflineMessage.java
+$(TARGET): $(MODEL)JTDBFriend.java
+	@ javac $(MODEL)JTDBFriend.java
 
 run:
-	@ java $(CFLAGS) $(MODEL)JTDBOfflineMessage
+	@ java $(CFLAGS) $(MODEL)JTDBFriend
 
 clean:
 	@ rm $(TARGET)
