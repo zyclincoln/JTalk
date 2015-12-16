@@ -1,4 +1,4 @@
-package JTalk;
+package JTalk.server.util;
 import java.util.*;
 
 public interface Message{
