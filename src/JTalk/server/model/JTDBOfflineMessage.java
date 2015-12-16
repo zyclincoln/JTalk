@@ -1,109 +1,97 @@
 package JTalk.server.model;
 
+import JTalk.server.util.*;
+
+import java.util.Formatter;
+import java.util.Calendar;
+import java.util.ArrayList;
 import java.sql.*;
 
 class OfflineMessage {
 	int sender_id;
 	int message_id;
-	java.util.Date time;
+	long time;
 	String content;
 
-	OfflineMessage(int sender_id, int message_id, java.util.Data time, String content) {
+	OfflineMessage(int sender_id, int message_id, long time, String content) {
 		this.sender_id = sender_id;
 		this.message_id = message_id;
 		this.time = time;
 		this.content = content;
 	}
-}
 
-enum GetMessageResultNumber {
-	SUCCESS, INVALID_ID, SYSTEM_ERROR
+	public String toString() {
+		return String.format("sender_id: %d    message_id: %d    time: %d    content: %s", sender_id, message_id, time, content);
+	}
 }
 
 class GetMessageResult implements Message {
-	GetMessageResultNumber result_number;
+	int result_number;
 	String message;
 	ArrayList<OfflineMessage> offline_message;
 
-	GetMessageResult();
-
-	GetMessageResult(GetMessageResultNumber result_number, String message, ArrayList<OfflineMessage> offline_message) {
+	GetMessageResult(int result_number, String message, ArrayList<OfflineMessage> offline_message) {
 		this.result_number = result_number;
 		this.message = message;
 		this.offline_message = offline_message;
 	}
 
-	String toString() {
+	public String toMessage() {
 		switch(result_number) {
-			case SUCCESS:
+			case 0:
 				return "GetMessage(): success";
-				break;
-			case INVALID_ID:
+			case 1:
 				return "GetMessage(): invalid ID";
-				break;
-			case SYSTEM_ERROR:
+			case 2:
 				return "GetMessage(): " + message;
-				break;
+			default:
+				return null;
 		}
 	}
-}
-
-enum AddMessageResultNumber {
-	SUCCESS, INVALID_ID, SYSTEM_ERROR
 }
 
 class AddMessageResult implements Message {
-	AddMessageResultNumber result_number;
+	int result_number;
 	String message;
 
-	AddMessageResult();
-
-	AddMessageResult(AddMessageResultNumber result_number, String message) {
+	AddMessageResult(int result_number, String message) {
 		this.result_number = result_number;
 		this.message = message;
 	}
 
-	String toString() {
+	public String toMessage() {
 		switch(result_number) {
-			case SUCCESS:
+			case 0:
 				return "AddMessage(): success";
-				break;
-			case INVALID_ID:
+			case 1:
 				return "AddMessage(): invalid ID";
-				break;
-			case SYSTEM_ERROR:
-				return "AddMessage(): " + message;
-				break;
+			case 2:
+				return "GetMessage(): " + message;
+			default:
+				return null;
 		}
 	}
 }
 
-enum DeleteMessageResultNumber {
-	SUCCESS, INVALID_ID, SYSTEM_ERROR
-}
-
 class DeleteMessageResult implements Message {
-	DeleteMessageResultNumber result_number;
+	int result_number;
 	String message;
 
-	DeleteMessageResult();
-
-	DeleteMessageResult(DeleteMessageResultNumber result_number, String message) {
+	DeleteMessageResult(int result_number, String message) {
 		this.result_number = result_number;
 		this.message = message;
 	}
 
-	String toString() {
+	public String toMessage() {
 		switch(result_number) {
-			case SUCCESS:
+			case 0:
 				return "DeleteMessage(): success";
-				break;
-			case INVALID_ID:
+			case 1:
 				return "DeleteMessage(): invalid ID";
-				break;
-			case SYSTEM_ERROR:
-				return "DeleteMessage(): " + message;
-				break;
+			case 2:
+				return "GetMessage(): " + message;
+			default:
+				return null;
 		}
 	}
 }
@@ -114,7 +102,9 @@ class JTDBOfflineMessage {
 
 	JTDBOfflineMessage(Connection connection) {
 		this.connection = connection;
-		this.statement = connection.createStatement();
+		try {
+			this.statement = connection.createStatement();
+		} catch(Exception exception) {}
 	}
 
 	void Init() {
@@ -130,15 +120,15 @@ class JTDBOfflineMessage {
 			ResultSet result_set = connection.getMetaData().getTables(null, null, "OfflineMessage" + id, null );
 			if(result_set.next()) {
 				result_set = statement.executeQuery("select * from OfflineMessage" + id);
-				ArrayList<OfflineMessage> offline_message;
+				ArrayList<OfflineMessage> offline_message = new ArrayList<OfflineMessage>();
 				while(result_set.next())
-					offline_message.add(OfflineMessage(result_set.getString(1), result_set.getString(2), result_set.getString(3), result_set.getString(4)));
-				return GetFriendResult(SUCCESS, null, offline_message);
+					offline_message.add(new OfflineMessage(result_set.getInt(1), result_set.getInt(2), result_set.getLong(3), result_set.getString(4)));
+				return new GetMessageResult(0, null, offline_message);
 			} else {
-				return GetFriendResult(INVALID_ID, null, null);
+				return new GetMessageResult(1, null, null);
 			}
 		} catch(Exception exception) {
-			return GetFriendResult(SYSTEM_ERROR, exception + "", null);
+			return new GetMessageResult(2, exception + "", null);
 		}
 	}
 
@@ -146,13 +136,13 @@ class JTDBOfflineMessage {
 		try {
 			ResultSet result_set = connection.getMetaData().getTables(null, null, "OfflineMessage" + id, null );
 			if(result_set.next()) {
-				statement.executeQuery("insert into OfflineMessage" + id + " values(" + offline_message.sender_id + ", " +  offline_message.message_id + ", " + offline_message.time + ", " + offline_message.content + ")");
-				return GetFriendResult(SUCCESS, null);
+				statement.executeUpdate("insert into OfflineMessage" + id + " values(" + offline_message.sender_id + ", " +  offline_message.message_id + ", '" + offline_message.time + "', '" + offline_message.content + "')");
+				return new AddMessageResult(0, null);
 			} else {
-				return GetFriendResult(INVALID_ID, null);
+				return new AddMessageResult(1, null);
 			}
 		} catch(Exception exception) {
-			return GetFriendResult(SYSTEM_ERROR, exception + "");
+			return new AddMessageResult(2, exception + "");
 		}
 	}
 
@@ -160,13 +150,46 @@ class JTDBOfflineMessage {
 		try {
 			ResultSet result_set = connection.getMetaData().getTables(null, null, "OfflineMessage" + id, null );
 			if(result_set.next()) {
-				statement.executeQuery("delete from OfflineMessage" + id + " where MessageID = " + offline_message.message_id);
-				return DeleteFriendResult(SUCCESS, null);
+				statement.executeUpdate("delete from OfflineMessage" + id + " where message_id = " + message_id);
+				return new DeleteMessageResult(0, null);
 			} else {
-				return DeleteFriendResult(INVALID_ID, null);
+				return new DeleteMessageResult(1, null);
 			}
 		} catch(Exception exception) {
-			return DeleteFriendResult(SYSTEM_ERROR, exception + "");
+			return new DeleteMessageResult(2, exception + "");
+		}
+	}
+
+	public static void main(String[] args) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/JTalk", "root", "");
+			JTDBOfflineMessage db_offline_message = new JTDBOfflineMessage(connection);
+
+			Calendar calendar = Calendar.getInstance();
+			for(int i = 1; i < 10; i++) {
+				AddMessageResult add_message_result = db_offline_message.AddMessage(0, new OfflineMessage(1, i, calendar.getTimeInMillis(), "hello"));
+				System.out.println(add_message_result.toMessage());				
+			}
+			System.out.println();
+
+			GetMessageResult get_message_result = db_offline_message.GetMessage(0);
+			System.out.println(get_message_result.toMessage());
+			if(get_message_result.result_number == 0) {
+				for(int i = 0; i < get_message_result.offline_message.size(); i++) {
+					System.out.println(get_message_result.offline_message.get(i));
+				}
+			}
+			System.out.println();
+
+			for(int i = 1; i < 10; i++) {
+				DeleteMessageResult delete_message_result = db_offline_message.DeleteMessage(0, i);
+				System.out.println(delete_message_result.toMessage());	
+			}
+ 		} catch(SQLException exception) {
+			System.out.println(exception);
+		} catch(ClassNotFoundException exception) {
+			System.out.println(exception);
 		}
 	}
 }

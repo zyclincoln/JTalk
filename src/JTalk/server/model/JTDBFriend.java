@@ -2,10 +2,6 @@ package JTalk.server.model;
 
 import java.sql.*;
 
-enum GetFriendResultNumber {
-	SUCCESS, INVALID_ID, SYSTEM_ERROR
-}
-
 class GetFriendResult implements Message {
 	GetFriendResultNumber result_number;
 	String message;
@@ -21,21 +17,17 @@ class GetFriendResult implements Message {
 
 	String toString() {
 		switch(result_number) {
-			case SUCCESS:
+			case 0:
 				return "GetFriend(): success";
 				break;
-			case INVALID_ID:
+			case 1:
 				return "GetFriend(): invalid ID";
 				break;
-			case SYSTEM_ERROR:
+			case 2:
 				return "GetFriend(): " + message;
 				break;
 		}
 	}
-}
-
-enum AddFriendResultNumber {
-	SUCCESS, INVALID_ID, SYSTEM_ERROR
 }
 
 class AddFriendResult implements Message {
@@ -51,21 +43,17 @@ class AddFriendResult implements Message {
 
 	String toString() {
 		switch(result_number) {
-			case SUCCESS:
+			case 0:
 				return "AddFriend(): success";
 				break;
-			case INVALID_ID:
+			case 1:
 				return "AddFriend(): invalid ID";
 				break;
-			case SYSTEM_ERROR:
+			case 2:
 				return "AddFriend(): " + message;
 				break;
 		}
 	}
-}
-
-enum DeleteFriendResultNumber {
-	SUCCESS, INVALID_ID, SYSTEM_ERROR
 }
 
 class DeleteFriendResult implements Message {
@@ -81,13 +69,13 @@ class DeleteFriendResult implements Message {
 
 	String toString() {
 		switch(result_number) {
-			case SUCCESS:
+			case 0:
 				return "DeleteFriend(): success";
 				break;
-			case INVALID_ID:
+			case 1:
 				return "DeleteFriend(): invalid ID";
 				break;
-			case SYSTEM_ERROR:
+			case 2:
 				return "DeleteFriend(): " + message;
 				break;
 		}
@@ -122,12 +110,12 @@ class JTDBFriend {
 					if(IsIDInLoginTable(id))
 						friend_id.add(Integer.parseInt());
 				}
-				return GetFriendResult(SUCCESS, null, friend_id);
+				return new GetFriendResult(0, null, friend_id);
 			} else {
-				return GetFriendResult(INVALID_ID, null, null);
+				return new GetFriendResult(1, null, null);
 			}
 		} catch(Exception exception) {
-			return GetFriendResult(SYSTEM_ERROR, exception + "", null);
+			return new GetFriendResult(2, exception + "", null);
 		}
 	}
 
@@ -138,12 +126,12 @@ class JTDBFriend {
 			if(result_set_1.next() && result_set_2.next()) {
 				statement.executeQuery("insert into Friend" + id_1 + " values(" + id_2 + ")");
 				statement.executeQuery("insert into Friend" + id_2 + " values(" + id_1 + ")");
-				return GetFriendResult(SUCCESS, null);
+				return new AddFriendResult(0, null);
 			} else {
-				return GetFriendResult(INVALID_ID, null);
+				return new AddFriendResult(1, null);
 			}
 		} catch(Exception exception) {
-			return GetFriendResult(SYSTEM_ERROR, exception + "");
+			return new AddFriendResult(2, exception + "");
 		}
 	}
 
@@ -154,12 +142,26 @@ class JTDBFriend {
 			if(result_set_1.next() && result_set_2.next()) {
 				statement.executeQuery("delete from Friend" + id_1 + " where ID = " + id_2);
 				statement.executeQuery("delete from Friend" + id_2 + " where ID = " + id_1);
-				return GetFriendResult(SUCCESS, null);
+				return new DeleteFriendResult(0, null);
 			} else {
-				return GetFriendResult(INVALID_ID, null);
+				return new DeleteFriendResult(1, null);
 			}
 		} catch(Exception exception) {
-			return GetFriendResult(SYSTEM_ERROR, exception + "");
+			return new DeleteFriendResult(2, exception + "");
+		}
+	}
+
+	public static void main(String[] args) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(
+				"jdbc:mysql://localhost/JTalk", "root", "");
+
+			JTDBFriend dbf = new JTDBFriend();
+ 		} catch(SQLException exception) {
+			System.out.println(exception);
+		} catch(ClassNotFoundException exception) {
+			System.out.println(exception);
 		}
 	}
 }
