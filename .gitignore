@@ -1,2 +1,2 @@
 *.class
-/src/Makefile
+src/Makefile
