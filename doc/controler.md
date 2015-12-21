@@ -1,45 +1,53 @@
-Account {
-	ID;
-	Password;
-	Name;
-	LoginTime;
-	LoginIP;
-	MessageCount;
+# Controller
+
+# 模型
+
+### 事件 - 用户角度
+
+* 注册新账号
+	* 发送昵称、密码
+	* 接收新账号
+* 登陆
+	* 发送账号、密码
+	* 接受登陆成败信息，若成功则附带好友列表（细节待定）和离线消息，好友列表包括好友在线离线状态
+* 添加好友
+	* 发送甲方账号、乙方账号
+	* 接收请求结果（非及时），包括通过、拒绝、忽略
+* 删除好友
+	* 发送甲方账号、乙方账号
+	* 接收请求结果（及时）
+* 发送消息
+	* 发送甲方账户、乙方账号、消息
+* 接受消息
+* 登出
+	* 发送登出请求
+
+### 属性
+
+* 登陆账户表
+
+### 通信
+
+* 数据包
+
+# 实现
+
+### 数据结构
+
+```
+LoginAccountInfo {
+	int id；
+	String ip;
+}
+```
+
+```
+Package {
+	int type；
 }
 
-class CheckResult {
-	boolean IsSuc;
-	result;
+PackageLogin {
+	
 }
+```
 
-login
-	CheckResult check(id, pwd, logintime, liginip);
-
-add account
-	AddAccount(name, pwd);
-
-search info
-	(ID, Name) SearchInfo(ID);
-
-===========================
-
-Friend[ID] {
-	ID
-}
-
-GetFriend(ID);
-AddFriend(ID1, ID2);
-DeleteFriend(ID1, ID2);
-
-===========================
-
-OfflineMessage[ID] {
-	SenderID;
-	MessangeID;
-	Time;
-	Content;
-}
-
-GetMessage(ID);
-RemoveMessage(ID, GlobalMessageID);
-AddMessage();
