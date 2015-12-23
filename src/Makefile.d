@@ -37,5 +37,8 @@ run2:
 run3:
 	@ java $(LIB) $($(@:run%=TARGET%):%.class=%)
 
+run4:
+	@ java $(LIB) $($(@:run%=TARGET%):%.class=%)
+
 clean:
 	@ rm -f $(DIR:%=%*.class)
