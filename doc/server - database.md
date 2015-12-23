@@ -51,4 +51,3 @@ OfflineMessage[ID] {
 GetMessage(ID);
 RemoveMessage(ID, GlobalMessageID);
 AddMessage();
-
