@@ -8,10 +8,11 @@ SERVER_CONTROLLER = $(SERVER)controller/
 SERVER_UTIL = $(SERVER)util/
 DIR = $(SERVER_MODEL) $(SERVER_MODEL) $(SERVER_CONTROLLER) $(SERVER_UTIL)
 
-TARGET = $(TARGET1) $(TARGET2) $(TARGET3)
+TARGET = $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4)
 TARGET1 = $(SERVER_MODEL)JTDBAccount.class
 TARGET2 = $(SERVER_MODEL)JTDBFriend.class
 TARGET3 = $(SERVER_MODEL)JTDBOfflineMessage.class
+TARGET4 = $(SERVER_MODEL)JTDatabase.class
 
 all: $(TARGET)
 
@@ -22,6 +23,9 @@ $(TARGET2): $(@:%.class=%.java)
 	@ javac $(@:%.class=%.java)
 
 $(TARGET3): $(@:%.class=%.java)
+	@ javac $(@:%.class=%.java)
+
+$(TARGET4): $(@:%.class=%.java)
 	@ javac $(@:%.class=%.java)
 
 run1:
