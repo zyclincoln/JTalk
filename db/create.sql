@@ -17,6 +17,7 @@ create table Friend2 (
 );
 
 create table OfflineMessage0 (
+	type int,
 	sender_id int,
 	message_id int,
 	time bigint,
