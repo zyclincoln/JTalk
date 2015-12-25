@@ -218,20 +218,6 @@ class AccountCheckResult implements Message {
 	public String loginTime;
 }
 
-class AccountAddResult implements Message {
-	public int result;
-	public String causeinfo;
-	public String toMessage(){
-		if(result==0){
-			return "Database: add succeeded.";
-		}
-		else{
-			return "Database: add error: "+causeinfo;
-		}
-	}
-	public int id;
-}
-
 class AccountSearchResult implements Message {
 	public int result;
 	public String causeinfo;

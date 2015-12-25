@@ -18,7 +18,7 @@ public class JTDatabase{
 		try{
 
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection DBConnection=DriverManager.getConnection("jdbc:mysql://localhost/JTalk","root","");
+			DBConnection=DriverManager.getConnection("jdbc:mysql://localhost/JTalk","root","");
 		}
 		catch(Exception e){
 			System.out.println(e);
@@ -26,8 +26,8 @@ public class JTDatabase{
 			result.message="JTDB Initial failed." + e.toString();
 			return result;
 		}
-		Account= new JTDBAccount(DBConnection);
 		Friend=new JTDBFriend(DBConnection);
+		Account= new JTDBAccount(DBConnection);
 		OfflineMessage=new JTDBOfflineMessage(DBConnection);
 		Account.initial();
 		Friend.Init();
