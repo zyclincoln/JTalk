@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.sql.*;
 
 class OfflineMessage {
+	int type;
 	int sender_id;
 	int message_id;
 	long time;
 	String content;
 
-	OfflineMessage(int sender_id, int message_id, long time, String content) {
+	OfflineMessage(int type, int sender_id, int message_id, long time, String content) {
+		this.type = 0;
 		this.sender_id = sender_id;
 		this.message_id = message_id;
 		this.time = time;
@@ -21,7 +23,7 @@ class OfflineMessage {
 	}
 
 	public String toString() {
-		return String.format("sender_id: %d    message_id: %d    time: %d    content: %s", sender_id, message_id, time, content);
+		return String.format("type: %d    sender_id: %d    message_id: %d    time: %d    content: %s", type, sender_id, message_id, time, content);
 	}
 }
 
@@ -129,7 +131,7 @@ class JTDBOfflineMessage {
 				result_set = statement_get_message.executeQuery();
 				ArrayList<OfflineMessage> offline_message = new ArrayList<OfflineMessage>();
 				while(result_set.next())
-					offline_message.add(new OfflineMessage(result_set.getInt(1), result_set.getInt(2), result_set.getLong(3), result_set.getString(4)));
+					offline_message.add(new OfflineMessage(result_set.getInt(1), result_set.getInt(2), result_set.getInt(3), result_set.getLong(4), result_set.getString(5)));
 				return new GetMessageResult(0, null, offline_message);
 			} else {
 				return new GetMessageResult(1, null, null);
@@ -182,7 +184,7 @@ class JTDBOfflineMessage {
 
 			Calendar calendar = Calendar.getInstance();
 			for(int i = 1; i < 10; i++) {
-				AddMessageResult add_message_result = db_offline_message.AddMessage(0, new OfflineMessage(1, i, calendar.getTimeInMillis(), "hello"));
+				AddMessageResult add_message_result = db_offline_message.AddMessage(0, new OfflineMessage(0, 1, i, calendar.getTimeInMillis(), "hello"));
 				System.out.println(add_message_result.toMessage());				
 			}
 			System.out.println();
