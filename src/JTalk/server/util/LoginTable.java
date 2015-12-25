@@ -16,4 +16,7 @@ public class LoginTable{
 		table.remove(id);
 		return 0;
 	}
+	public Sender getSender(int id){
+		return table.get(id);
+	}
 }
