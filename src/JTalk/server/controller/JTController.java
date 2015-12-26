@@ -12,7 +12,7 @@ public class JTController {
 	JTCSignupManager signupManager;
 	JTCLoginoutManager loginoutManager;
 	JTCMessageManager messageManager;
-	JTCMessageReceivedManager messageReceiveManager;
+	JTCMessageReceivedManager messageReceivedManager;
 
 	public JTController() {
 		database = new JTDatabase();
@@ -20,7 +20,7 @@ public class JTController {
 		signupManager = new JTCSignupManager(database);
 		loginoutManager = new JTCLoginoutManager(database, loginTable);
 		messageManager = new JTCMessageManager(database, loginTable);
-		messageReceiveManager = new JTCMessageReceivedManager(database);
+		messageReceivedManager = new JTCMessageReceivedManager(database);
 	}
 
 	public void Init() {
@@ -28,11 +28,12 @@ public class JTController {
 	}
 
 	public void Run() {
-		Thread thread_listener = new Thread(new JTCListener(signupManager, loginoutManager, messageManager, messageReceiveManager));
+		Thread thread_listener = new Thread(new JTCListener(signupManager, loginoutManager, messageManager, messageReceivedManager));
 		thread_listener.start();
-		try {
+		try{
 			thread_listener.join();
-		} catch(Exception e) {
+		}
+		catch(Exception e){
 			System.out.println(e);
 		}
 	}

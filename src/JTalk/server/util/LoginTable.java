@@ -8,8 +8,8 @@ public class LoginTable{
 	public LoginTable(){
 		table=new HashMap<Integer,Sender>();
 	}
-	public synchronized int Login(int id, Socket client){
-		Sender sender=new Sender(client);
+	public synchronized int Login(int id, String ip, int port){
+		Sender sender=new Sender(ip,port);
 		table.remove(id);
 		table.put(id,sender);
 		return 0;

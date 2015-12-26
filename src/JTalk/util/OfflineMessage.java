@@ -1,6 +1,8 @@
 package JTalk.util;
 
-public class OfflineMessage {
+import java.io.*;
+
+public class OfflineMessage implements Serializable {
 	public int type;
 	public int sender_id;
 	public int message_id;

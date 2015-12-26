@@ -17,7 +17,7 @@ class JTDBOfflineMessage {
 		this.connection = connection;
 		try {
 			this.statement_get_message = connection.prepareStatement("select * from OfflineMessage?");
-			this.statement_add_message = connection.prepareStatement("insert into OfflineMessage? values(?, ?, ?, ?)");
+			this.statement_add_message = connection.prepareStatement("insert into OfflineMessage? values(?, ?, ?, ?, ?)");
 			this.statement_delete_message = connection.prepareStatement("delete from OfflineMessage? where message_id = ?");
 		} catch(Exception exception) {
 			System.out.println(exception);
@@ -55,10 +55,11 @@ class JTDBOfflineMessage {
 			ResultSet result_set = connection.getMetaData().getTables(null, null, "OfflineMessage" + id, null );
 			if(result_set.next()) {
 				statement_add_message.setInt(1, id);
-				statement_add_message.setInt(2, offline_message.sender_id);
-				statement_add_message.setInt(3, offline_message.message_id);
-				statement_add_message.setLong(4, offline_message.time);
-				statement_add_message.setString(5, offline_message.content);
+				statement_add_message.setInt(2, offline_message.type);
+				statement_add_message.setInt(3, offline_message.sender_id);
+				statement_add_message.setInt(4, offline_message.message_id);
+				statement_add_message.setLong(5, offline_message.time);
+				statement_add_message.setString(6, offline_message.content);
 				statement_add_message.executeUpdate();
 				return new AddMessageResult(0, null);
 			} else {

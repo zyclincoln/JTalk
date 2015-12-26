@@ -18,7 +18,7 @@ public class JTDatabase{
 		result.result_number=0;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			DBConnection=DriverManager.getConnection("jdbc:derby:firstdb;create=true");
+			DBConnection=DriverManager.getConnection("jdbc:mysql://localhost/JTalk","root","");
 		}
 		catch(Exception e){
 			System.out.println(e);

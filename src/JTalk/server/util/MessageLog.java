@@ -14,11 +14,11 @@ public class MessageLog implements Message {
 	public String toMessage() {
 		switch(result_number) {
 			case 0:
-				return "Success " + message;
+				return "Success: " + message;
 			case 1:
-				return "Failed " + message;
+				return "Failed: " + message;
 			case 2:
-				return "Faild " + message;
+				return "Failed: " + message;
 			default:
 				return null;
 		}

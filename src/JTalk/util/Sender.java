@@ -4,20 +4,16 @@ import java.net.*;
 
 public class Sender{
 	private String ip;
-	private Socket client;
-	private ObjectOutputStream toClient;
-	public Sender(Socket client){
-		try{
-			this.client=client;
-			toClient=new ObjectOutputStream(client.getOutputStream());
-		}
-		catch(Exception e){
-			System.out.println(e);
-		}
+	private int port;
+	public Sender(String ip,int port){
+		this.ip=ip;
+		this.port=port;
 	}
 
 	public synchronized int Deliver(ServerPackage message){
 		try{
+			Socket client=new Socket(ip,port);
+			ObjectOutputStream toClient=new ObjectOutputStream(client.getOutputStream());
 			switch(message.type){
 				case 0:	
 					toClient.writeObject((SPSignup)message);break;
@@ -27,6 +23,8 @@ public class Sender{
 					toClient.writeObject((SPMessage)message);break;
 			}
 			toClient.flush();
+			toClient.close();
+			client.close();
 			return 0;
 		}
 		catch(Exception e){

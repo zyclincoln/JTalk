@@ -42,13 +42,13 @@ public class JTCJobManager implements Runnable{
 		switch(cp.type){
 			case 0:{
 				CPSignupReq signupReq=(CPSignupReq)cp;
-				SignupLog log=signupManager.Signup(client,client.getInetAddress().getHostAddress(),0,signupReq.name,signupReq.password);
+				SignupLog log=signupManager.Signup(client.getInetAddress().getHostAddress(),signupReq.port,0,signupReq.name,signupReq.password);
 				System.out.println(log.toMessage());
 				break;
 			}
 			case 1:{
 				CPLoginReq loginReq=(CPLoginReq)cp;
-				LoginLog log=loginoutManager.Login(client,loginReq.id,loginReq.password,client.getInetAddress().getHostAddress());
+				LoginLog log=loginoutManager.Login(loginReq.id,loginReq.password,client.getInetAddress().getHostAddress(),loginReq.port);
 				System.out.println(log.toMessage());
 				break;
 			}
@@ -64,10 +64,22 @@ public class JTCJobManager implements Runnable{
 				System.out.println(log.toMessage());
 				break;
 			}
+			case 4:{
+				CPLogout logout=(CPLogout)cp;
+				LogoutLog log=loginoutManager.Logout(logout.id);
+				System.out.println(log.toMessage());
+			}
 			default:{
 				System.out.println("Warning!!!: Received Unknown Package. From "+client.getInetAddress().getHostAddress());
 				break;
 			}
+		}
+		try{
+			fromClient.close();
+			client.close();
+		}
+		catch(Exception e){
+			System.out.println(e);
 		}
 	}
 }
