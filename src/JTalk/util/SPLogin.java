@@ -1,4 +1,4 @@
-package JTalk.server.util;
+package JTalk.util;
 import java.util.*;
 
 public class SPLogin extends ServerPackage{

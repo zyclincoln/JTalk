@@ -1,6 +1,6 @@
 package JTalk.server.model;
 
-import JTalk.server.util.*;
+import JTalk.util.*;
 
 class DeleteFriendResult implements Message {
 	int result_number;

@@ -1,6 +1,6 @@
 package JTalk.server.model;
 
-import JTalk.server.util.*;
+import JTalk.util.*;
 
 class AddMessageResult implements Message {
 	int result_number;

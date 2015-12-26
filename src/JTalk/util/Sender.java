@@ -1,4 +1,4 @@
-package JTalk.server.util;
+package JTalk.util;
 import java.io.*;
 import java.net.*;
 

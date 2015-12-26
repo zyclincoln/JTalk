@@ -1,16 +1,16 @@
 package JTalk.server.model;
 import JTalk.util.*;
 
-class AccountSearchResult implements Message {
+class AccountAddResult implements Message {
 	public int result;
 	public String causeinfo;
 	public String toMessage(){
 		if(result==0){
-			return "Database: search succeeded.";
+			return "Database: add succeeded.";
 		}
 		else{
-			return "Database: search error: "+causeinfo;
+			return "Database: add error: "+causeinfo;
 		}
 	}
-	public String name;
+	public int id;
 }

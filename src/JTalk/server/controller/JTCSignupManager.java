@@ -1,6 +1,6 @@
 package JTalk.server.controller;
 import JTalk.server.model.*;
-import JTalk.server.util.*;
+import JTalk.util.*;
 import java.net.*;
 import java.io.*;
 import java.util.*;
