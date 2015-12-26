@@ -1,5 +1,5 @@
 package JTalk.server.controller;
-import JTalk.server.util.*;
+import JTalk.util.*;
 import JTalk.server.model.*;
 import java.util.*;
 
@@ -18,15 +18,29 @@ public class JTCLoginoutManager{
 		LoginLog log;
 		if(result.result==0){
 			loginTable.Login(id,loginIP);
-
+			GetFriendResult database.GetFriend(id);
 
 		}
 		else{
+			ObjectOutputStream toClient;
 			try{
 				Socket client=new Socket(loginIP,8000);
-				ObjectOutputStream toClient=new ObjectOutputStream(client.getOutputStream());
-				
+				toClient=new ObjectOutputStream(client.getOutputStream());
+				toClient.writeObject(new SPLogin());
+				log=new LoginLog(false,result,"Login failed :"+"id");
+			}
+			catch(Exception e){
+				log=new LoginLog(false,result,"Login failed : "+e.toString());
+			}
+			finally{
+				try{
+					toClient.close();
+				}
+				catch(Exception e){
+					System.out.println(e);
+				}
 			}
 		}
+		return log;
 	}
 }
