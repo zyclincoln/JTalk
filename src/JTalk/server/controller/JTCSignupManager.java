@@ -13,14 +13,13 @@ public class JTCSignupManager {
 		this.database=database;
 	}
 
-	public SignupLog Signup(String ip, int messageID, String name, String password){
+	public SignupLog Signup(Socket client,String ip, int messageID, String name, String password){
 		AccountAddResult result=database.AddAccount(name,password);
 		SignupLog log;
 		SPSignup reply;
 		ObjectOutputStream toClient;
 
 		try{
-			Socket client=new Socket(ip,8000);
 			toClient= new ObjectOutputStream(client.getOutputStream());
 		}
 		catch(Exception e){
@@ -42,14 +41,14 @@ public class JTCSignupManager {
 			log=new SignupLog(false,result,e.toString());
 			return log;
 		}
-		finally{
-			try{
-				toClient.close();
-			}
-			catch(Exception e){
-				System.out.println(e);
-			}
-		}
+//		finally{
+//			try{
+//				toClient.close();
+//			}
+//			catch(Exception e){
+//				System.out.println(e);
+//			}
+//		}
 
 		log=new SignupLog(true,result,new String(""));
 		return log;

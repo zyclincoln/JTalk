@@ -23,7 +23,7 @@ public class JTCJobManager implements Runnable{
 		this.signupManager=signupManager;
 		this.loginoutManager=loginoutManager;
 		this.messageReceiveManager=messageReceiveManager;
-		this.messageManager=this.messageManager;
+		this.messageManager=messageManager;
 	}
 
 	public void run(){
@@ -42,13 +42,13 @@ public class JTCJobManager implements Runnable{
 		switch(cp.type){
 			case 0:{
 				CPSignupReq signupReq=(CPSignupReq)cp;
-				SignupLog log=signupManager.Signup(client.getInetAddress().getHostAddress(),0,signupReq.name,signupReq.password);
+				SignupLog log=signupManager.Signup(client,client.getInetAddress().getHostAddress(),0,signupReq.name,signupReq.password);
 				System.out.println(log.toMessage());
 				break;
 			}
 			case 1:{
 				CPLoginReq loginReq=(CPLoginReq)cp;
-				LoginLog log=loginoutManager.Login(loginReq.id,loginReq.password,client.getInetAddress().getHostAddress());
+				LoginLog log=loginoutManager.Login(client,loginReq.id,loginReq.password,client.getInetAddress().getHostAddress());
 				System.out.println(log.toMessage());
 				break;
 			}

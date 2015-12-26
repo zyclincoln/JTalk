@@ -24,7 +24,7 @@ public class JTCListener implements Runnable{
 		this.signupManager=signupManager;
 		this.loginoutManager=loginoutManager;
 		this.messageReceiveManager=messageReceiveManager;
-		this.messageManager=this.messageManager;
+		this.messageManager=messageManager;
 	}
 
 	public void run(){

@@ -28,9 +28,13 @@ public class JTController {
 	}
 
 	public void Run() {
-		Thread thread_listener = new Thread.(new Listener(signupManager, loginoutManager, messageManager, messageReceivedManager));
+		Thread thread_listener = new Thread(new JTCListener(signupManager, loginoutManager, messageManager, messageReceiveManager));
 		thread_listener.start();
-		thread_listener.join();
+		try {
+			thread_listener.join();
+		} catch(Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	public void Terminate() {

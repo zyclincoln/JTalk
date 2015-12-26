@@ -6,9 +6,9 @@ public class Sender{
 	private String ip;
 	private Socket client;
 	private ObjectOutputStream toClient;
-	public Sender(String ip){
+	public Sender(Socket client){
 		try{
-			client = new Socket(ip,8000);
+			this.client=client;
 			toClient=new ObjectOutputStream(client.getOutputStream());
 		}
 		catch(Exception e){

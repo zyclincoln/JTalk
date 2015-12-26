@@ -16,10 +16,9 @@ public class JTDatabase{
 	public JTDBInitResult initial(){	
 		JTDBInitResult result=new JTDBInitResult();
 		result.result_number=0;
-		try{
-
+		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			DBConnection=DriverManager.getConnection("jdbc:mysql://localhost/JTalk","root","");
+			DBConnection=DriverManager.getConnection("jdbc:derby:firstdb;create=true");
 		}
 		catch(Exception e){
 			System.out.println(e);
