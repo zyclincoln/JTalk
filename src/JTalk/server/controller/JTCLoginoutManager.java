@@ -27,7 +27,7 @@ public class JTCLoginoutManager{
 		return log;
 	}
 
-	public LoginLog Login(int id,String password,String loginIP){
+	public LoginLog Login(int id,String password,String loginIP,int port){
 		java.text.SimpleDateFormat timeformat =  new java.text.SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date(calendar.getTimeInMillis());
 		AccountCheckResult result=database.CheckIn(id,password,timeformat.format(date),loginIP);
@@ -56,7 +56,7 @@ public class JTCLoginoutManager{
 					if(gmResult.result_number==0){
 						offlineMessage=gmResult.offline_message;
 						SPLogin reply=new SPLogin(result.name,friends,offlineMessage);
-						loginTable.Login(id,loginIP);
+						loginTable.Login(id,loginIP,port);
 						if(loginTable.getSender(id).Deliver(reply)==0){
 							log = new LoginLog(true,result,"Login succeed : "+id);
 							return log;
@@ -79,12 +79,13 @@ public class JTCLoginoutManager{
 		}
 
 		try{
-			Socket client=new Socket(loginIP,8000);
+			Socket client=new Socket(loginIP,port);
 			ObjectOutputStream toClient=new ObjectOutputStream(client.getOutputStream());
 			toClient.writeObject(new SPLogin());
 			toClient.flush();
 			log=new LoginLog(false,result,"Login failed :"+errorCause);
 			toClient.close();
+			client.close();
 		}
 		catch(Exception e){
 			log=new LoginLog(false,result,"Login failed : "+e.toString());
