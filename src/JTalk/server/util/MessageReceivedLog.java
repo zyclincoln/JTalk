@@ -1,12 +1,12 @@
-package JTalk.server.model;
+package JTalk.server.util;
 
 import JTalk.util.*;
 
-public class DeleteMessageResult implements Message {
+public class MessageReceivedLog implements Message {
 	public int result_number;
 	public String message;
 
-	public DeleteMessageResult(int result_number, String message) {
+	public MessageReceivedLog(int result_number, String message) {
 		this.result_number = result_number;
 		this.message = message;
 	}
@@ -14,11 +14,11 @@ public class DeleteMessageResult implements Message {
 	public String toMessage() {
 		switch(result_number) {
 			case 0:
-				return "DeleteMessage(): success";
+				return "Success " + message;
 			case 1:
-				return "DeleteMessage(): invalid ID";
+				return "Failed " + message;
 			case 2:
-				return "GetMessage(): " + message;
+				return "Faild " + message;
 			default:
 				return null;
 		}

@@ -2,9 +2,9 @@ package JTalk.server.model;
 
 import JTalk.util.*;
 
-class AddMessageResult implements Message {
-	int result_number;
-	String message;
+public class AddMessageResult implements Message {
+	public int result_number;
+	public String message;
 
 	AddMessageResult(int result_number, String message) {
 		this.result_number = result_number;
