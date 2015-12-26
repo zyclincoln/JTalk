@@ -18,7 +18,7 @@ public class JTCMessageManager {
 			message_id++;
 			offline_message.messageID = message_id;
 		}
-		AddMessageResult add_message_result = database.AddMessage(int receiver_id, OfflineMessage message);
+		AddMessageResult add_message_result = database.AddMessage(receiver_id, message);
 		if(add_message_result.result_num == 0) {
 			login_table.getSender(receiver_id);
 			Deliver(OfflineMessage);
