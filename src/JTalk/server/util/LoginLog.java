@@ -1,4 +1,6 @@
-package JTalk.util;
+package JTalk.server.util;
+import JTalk.util.*;
+import JTalk.server.model.*;
 
 public class LoginLog implements Message{
 	public boolean isSuc;

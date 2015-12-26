@@ -26,6 +26,7 @@ public class Sender{
 				case 2:
 					toClient.writeObject((SPMessage)message);break;
 			}
+			toClient.flush();
 			return 0;
 		}
 		catch(Exception e){

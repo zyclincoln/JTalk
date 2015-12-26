@@ -1,7 +1,7 @@
 package JTalk.server.model;
 import JTalk.util.*;
 
-class AccountCheckResult implements Message {
+public class AccountCheckResult implements Message {
 	public int result;
 	public String causeinfo;
 	public String toMessage(){

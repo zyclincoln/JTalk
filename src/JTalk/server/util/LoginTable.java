@@ -1,5 +1,6 @@
-package JTalk.util;
+package JTalk.server.util;
 import java.util.*;
+import JTalk.util.*;
 
 public class LoginTable{
 	private Map<Integer,Sender>table;

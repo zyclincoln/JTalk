@@ -1,13 +1,13 @@
-package JTalk.server.model;
+package JTalk.util;
 
-class OfflineMessage {
-	int type;
-	int sender_id;
-	int message_id;
-	long time;
-	String content;
+public class OfflineMessage {
+	public int type;
+	public int sender_id;
+	public int message_id;
+	public long time;
+	public String content;
 
-	OfflineMessage(int type, int sender_id, int message_id, long time, String content) {
+	public OfflineMessage(int type, int sender_id, int message_id, long time, String content) {
 		this.type = 0;
 		this.sender_id = sender_id;
 		this.message_id = message_id;

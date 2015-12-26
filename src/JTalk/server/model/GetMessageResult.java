@@ -4,12 +4,12 @@ import JTalk.util.*;
 
 import java.util.ArrayList;
 
-class GetMessageResult implements Message {
-	int result_number;
-	String message;
-	ArrayList<OfflineMessage> offline_message;
+public class GetMessageResult implements Message {
+	public int result_number;
+	public String message;
+	public ArrayList<OfflineMessage> offline_message;
 
-	GetMessageResult(int result_number, String message, ArrayList<OfflineMessage> offline_message) {
+	public GetMessageResult(int result_number, String message, ArrayList<OfflineMessage> offline_message) {
 		this.result_number = result_number;
 		this.message = message;
 		this.offline_message = offline_message;

@@ -4,12 +4,12 @@ import JTalk.util.*;
 
 import java.util.ArrayList;
 
-class GetFriendResult implements Message {
-	int result_number;
-	String message;
-	ArrayList<Integer> friend;
+public class GetFriendResult implements Message {
+	public int result_number;
+	public String message;
+	public ArrayList<Integer> friend;
 
-	GetFriendResult(int result_number, String message, ArrayList<Integer> friend) {
+	public GetFriendResult(int result_number, String message, ArrayList<Integer> friend) {
 		this.result_number = result_number;
 		this.message = message;
 		this.friend = friend;

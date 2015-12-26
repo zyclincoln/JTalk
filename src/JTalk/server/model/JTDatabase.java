@@ -1,4 +1,5 @@
 package JTalk.server.model;
+import JTalk.server.util.*;
 import JTalk.util.*;
 import java.sql.*;
 import java.util.*;
@@ -48,7 +49,7 @@ public class JTDatabase{
 		return Friend.DeleteFriend(id_1,id_2);
 	}
 
-	public AccountCheckResult ChekcIn(Integer id,String passwd, String loginTime, String loginIP){
+	public AccountCheckResult CheckIn(Integer id,String passwd, String loginTime, String loginIP){
 		return Account.Check(id,passwd,loginTime,loginIP);
 	}
 
