@@ -5,16 +5,12 @@ create database JTalk;
 use JTalk;
 
 create table Account(
-	ID int AUTO_INCREMENT,
+	ID int,
 	Password char(60),
 	Name char(20),
 	LoginTime char(30),
 	LoginIP char(40),
 	primary key (ID)
-);
-
-create table Friend0 (
-	id int
 );
 
 create table Friend1 (
@@ -25,20 +21,8 @@ create table Friend2 (
 	id int
 );
 
-create table OfflineMessage0 (
-	type int,
-	sender_id int,
-	message_id int,
-	time bigint,
-	content varchar(255)
-);
-
-create table OfflineMessage0 (
-	type int,
-	sender_id int,
-	message_id int,
-	time bigint,
-	content varchar(255)
+create table Friend3 (
+	id int
 );
 
 create table OfflineMessage1 (
@@ -57,4 +41,14 @@ create table OfflineMessage2 (
 	content varchar(255)
 );
 
-#insert into Account values(0, "0",)
+create table OfflineMessage3 (
+	type int,
+	sender_id int,
+	message_id int,
+	time bigint,
+	content varchar(255)
+);
+
+insert into Account values(1, "1", "1", "1", "1");
+insert into Account values(2, "2", "2", "2", "2");
+insert into Account values(3, "3", "3", "3", "3");
