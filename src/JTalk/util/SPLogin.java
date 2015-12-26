@@ -10,6 +10,7 @@ public class SPLogin extends ServerPackage{
 		this.isSuc=false;
 	}
 	public SPLogin(String name,HashMap<Integer,String> friends,ArrayList<OfflineMessage> offlineMessage){
+		super.type=1;
 		this.isSuc=true;
 		this.name=name;
 		this.friends=friends;
