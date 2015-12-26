@@ -10,6 +10,8 @@ public class JTDBAccount{
 	private PreparedStatement addStatement;
 	private PreparedStatement searchStatement;
 	private PreparedStatement idStatement;
+	private PreparedStatement createFriend;
+	private PreparedStatement createOfflineMessage;
 	public JTDBAccount(Connection DB){
 		DBConnection=DB;
 	}
@@ -28,6 +30,8 @@ public class JTDBAccount{
 				result.result=0;
 				result.causeinfo="table Account missed. Rebuilded.";
 			}
+			createFriend=DBConnection.prepareStatement("create table Friend? ( id int )");
+			createOfflineMessage=DBConnection.prepareStatement("create table OfflineMessage? ( type int,	sender_id int,	message_id int,	time bigint, content varchar(255))");
 			checkStatement=DBConnection.prepareStatement("select Name, LoginTime, LoginIP from Account where ID = ? and Password = ? ");
 			updateStatement=DBConnection.prepareStatement("update Account set LoginTime = ?, LoginIP = ? where ID = ?");
 			addStatement=DBConnection.prepareStatement("insert into Account (Password, Name) values (?, ?)");
@@ -100,6 +104,10 @@ public class JTDBAccount{
 			if(rset.next()){
 				result.result=0;
 				result.id=rset.getInt(1);
+				createFriend.setInt(1,rset.getInt(1));
+				createOfflineMessage.setInt(1,rset.getInt(1));
+				createFriend.executeUpdate();
+				createOfflineMessage.executeUpdate();
 			}
 			else{
 				result.result=1;
