@@ -103,6 +103,7 @@ public class JTDBAccount{
 			ResultSet rset=idStatement.executeQuery();
 			if(rset.next()){
 				result.result=0;
+				rset.last();
 				result.id=rset.getInt(1);
 				createFriend.setInt(1,rset.getInt(1));
 				createOfflineMessage.setInt(1,rset.getInt(1));
