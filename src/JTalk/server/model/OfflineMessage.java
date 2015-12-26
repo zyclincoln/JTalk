@@ -1,4 +1,4 @@
-package JTalk.server.util;
+package JTalk.server.model;
 
 class OfflineMessage {
 	int type;

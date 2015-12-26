@@ -88,29 +88,3 @@ public class JTDatabase{
 		return result;
 	}
 }
-
-class JTDBInitResult implements Message{
-	int result_number;
-	String message;
-	public String toMessage(){
-		if(result_number==0){
-			return "JTDB initial result: "+message;
-		}
-		else{
-			return "JTDB initial result: "+message;
-		}
-	}
-}
-
-class JTDBTerminateResult implements Message{
-	int result_number;
-	String message;
-	public String toMessage(){
-		if(result_number==0){
-			return "JTDB terminate result: "+message;
-		}
-		else{
-			return "JTDB terminate result: "+message;
-		}
-	}
-}

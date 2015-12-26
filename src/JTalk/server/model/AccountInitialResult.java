@@ -1,6 +1,7 @@
-package JTalk.server.util;
+package JTalk.server.model;
+import JTalk.server.util.*;
 
-public class AccountInitialResult implements Message {
+class AccountInitialResult implements Message {
 	public int result;
 	public String causeinfo;
 	public String toMessage(){

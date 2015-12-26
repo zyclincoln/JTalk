@@ -1,4 +1,5 @@
-package JTalk.server.util;
+package JTalk.server.model;
+import JTalk.server.util.*;
 
 class AccountCheckResult implements Message {
 	public int result;
