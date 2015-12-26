@@ -18,7 +18,7 @@ class AddMessageResult implements Message {
 			case 1:
 				return "AddMessage(): invalid ID";
 			case 2:
-				return "GetMessage(): " + message;
+				return "AddMessage(): " + message;
 			default:
 				return null;
 		}
