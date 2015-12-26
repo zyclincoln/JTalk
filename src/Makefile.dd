@@ -44,12 +44,12 @@ TARGET2 = $(UTIL)ClientPackage.class\
 
 TARGET3 = $(SERVER_UTIL)LoginLog.class\
 			$(SERVER_UTIL)LoginTable.class\
-			$(SERVER_UTIL)SignupLog.class		
+			$(SERVER_UTIL)SignupLog.class
 
 TARGET4 = $(SERVER_CONTROLLER)JTCLoginoutManager.class\
-			$(SERVER_CONTROLLER)JTCSignupManager.class
-
-
+			$(SERVER_CONTROLLER)JTCSignupManager.class\
+			$(SERVER_CONTROLLER)JTCMessageManager.class\
+			$(SERVER_CONTROLLER)JTCMessageReceivedManager.class\
 
 
 
