@@ -16,6 +16,17 @@ public class JTCLoginoutManager{
 		this.loginTable=loginTable;
 	}
 
+	public LogoutLog Logout(int id){
+		LogoutLog log;
+		if(loginTable.Logout(id)==0){
+			log=new LogoutLog(true,id+" has logout.");
+		}
+		else{
+			log=new LogoutLog(false,id+" hasn't login.");
+		}
+		return log;
+	}
+
 	public LoginLog Login(int id,String password,String loginIP){
 		java.text.SimpleDateFormat timeformat =  new java.text.SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date(calendar.getTimeInMillis());

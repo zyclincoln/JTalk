@@ -14,8 +14,12 @@ public class LoginTable{
 		return 0;
 	}
 	public synchronized int Logout(int id){
-		table.remove(id);
-		return 0;
+		if(table.remove(id)!=null){
+			return 0;
+		}
+		else{
+			return -1;
+		}
 	}
 	public Sender getSender(int id){
 		return table.get(id);
