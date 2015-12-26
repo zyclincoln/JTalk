@@ -1,4 +1,4 @@
-package JTalk.server.util;
+package JTalk.util;
 
 public class CPMessage extends ClientPackage{
 	public int reciver_id;

@@ -1,4 +1,4 @@
-package JTalk.server.util;
+package JTalk.util;
 
 public class CPLoginReq extends ClientPackage{
 	public int id;

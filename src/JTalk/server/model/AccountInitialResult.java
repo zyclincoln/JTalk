@@ -1,5 +1,5 @@
 package JTalk.server.model;
-import JTalk.server.util.*;
+import JTalk.util.*;
 
 class AccountInitialResult implements Message {
 	public int result;
