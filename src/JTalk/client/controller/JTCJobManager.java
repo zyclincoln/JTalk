@@ -1,6 +1,10 @@
-package JTalk.server.controller;
+package JTalk.client.controller;
+
+import JTalk.util.*;
 
 import java.net.*;
+import java.util.*;
+import java.io.*;
 
 public class JTCJobManager implements Runnable {
 	Socket server;
@@ -19,9 +23,9 @@ public class JTCJobManager implements Runnable {
 	}
 
 	public void run() {
-		ClientPackage cp;
+		ServerPackage sp;
 		try {
-			cp = (ClientPackage)fromClient.readObject();
+			sp = (ServerPackage)fromClient.readObject();
 		} catch(IOException e) {
 			System.out.println("Warning: Cannot read from inputstrea of :" + server.getInetAddress().getHostAddress());
 			return;
@@ -30,19 +34,19 @@ public class JTCJobManager implements Runnable {
 			return;
 		}
 
-		switch(cp.type) {
+		switch(sp.type) {
 			case 0: {
-				SPSignup signup = (SPSignup)cp;
+				SPSignup signup = (SPSignup)sp;
 				controller.Signup(signup);
 				break;
 			}
 			case 1: {
-				SPLogin login = (SPLogin)cp;
+				SPLogin login = (SPLogin)sp;
 				controller.Login(login);
 				break;
 			}
 			case 2: {
-				SPMessage message = (SPMessage)cp;
+				SPMessage message = (SPMessage)sp;
 				controller.ProcessMessage(message);
 				break;
 			}

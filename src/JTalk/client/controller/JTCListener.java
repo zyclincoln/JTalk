@@ -1,4 +1,4 @@
-package JTalk.server.controller;
+package JTalk.client.controller;
 
 import java.net.*;
 import java.util.concurrent.*;

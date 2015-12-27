@@ -9,7 +9,7 @@ public class JTDatabase {
 	Connection connection;
 	private Statement statement;
 
-	void Init() {
+	public void Init() {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
 			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
@@ -19,7 +19,7 @@ public class JTDatabase {
 		}
 	}
 
-	void AddAccount(int id, HashMap<Integer, String> friends) {
+	public void AddAccount(int id, HashMap<Integer, String> friends) {
 		try {
 			statement.executeUpdate("CREATE TABLE Friend" + id + " (id int, name char(20), has_unread int, primary key(id))");
 			System.out.println("Account " + id + " added");
@@ -40,7 +40,7 @@ public class JTDatabase {
 		}
 	}
 
-	void AddFriend(int id, int friend_id, String friend_name) {
+	public void AddFriend(int id, int friend_id, String friend_name) {
 		try {
 			statement.executeUpdate("insert into Friend" + id + " values(" + friend_id + ", '" + friend_name + "', 0)");
 			statement.executeUpdate("create table Message" + id + "_" + friend_id + " (type int, time bigint, content varchar(255), unread int)");
@@ -50,7 +50,7 @@ public class JTDatabase {
 		}
 	}
 
-	void AddMessage(int id, OfflineMessage offline_message) {
+	public void AddMessage(int id, OfflineMessage offline_message) {
 		try {
 			statement.executeUpdate("insert into Message" + id + "_" + offline_message.sender_id + " values(" + offline_message.type + ", " + offline_message.time + ", '" + offline_message.content + "', 1)");
 			statement.executeUpdate("update Friend" + id + " set has_unread = 1 where id = " + offline_message.sender_id);
@@ -60,7 +60,7 @@ public class JTDatabase {
 		}
 	}
 
-	HashMap<Integer, Boolean> GetMessageState(int id) {
+	public HashMap<Integer, Boolean> GetMessageState(int id) {
 		try {
 			HashMap<Integer, Boolean> map = new HashMap<Integer, Boolean>();
 			ResultSet result = statement.executeQuery("select id, has_unread from Friend" + id);
@@ -75,7 +75,7 @@ public class JTDatabase {
 		}
 	}
 
-	ArrayList<UnreadMessage> GetUnreadMessage(int id, int friend_id) {
+	public ArrayList<UnreadMessage> GetUnreadMessage(int id, int friend_id) {
 		try {
 			ArrayList<UnreadMessage> al = new ArrayList<UnreadMessage>();
 			ResultSet result = statement.executeQuery("select * from Message" + id + "_" + friend_id + " where unread = 1");
@@ -101,7 +101,7 @@ public class JTDatabase {
 		}
 	}
 
-	void DeleteFriend(int id, int friend_id) {
+	public void DeleteFriend(int id, int friend_id) {
 		try {
 			statement.executeUpdate("drop table Message" + id + "_" + friend_id);
 			statement.executeUpdate("delete from Friend" + id + " where id = " + friend_id);
@@ -111,7 +111,7 @@ public class JTDatabase {
 		}
 	}
 
-	void Terminate() {
+	public void Terminate() {
 		try {
 			connection.close();
 		} catch(Exception e) {
