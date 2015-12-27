@@ -16,7 +16,7 @@ public class LoginWindow extends JFrame{
 	private JPanel buttonPanel;
 	private JButton signup;
 	private JButton login;
-	public LoginWindow(ButtonListener loginListener, ButtonListener signupListener){
+	public LoginWindow(ActionListener loginListener, ActionListener signupListener){
 		userID= new JTextField(20); 
 		userPassword=new JPasswordField(20);
 		pwPanel=new JPanel();
@@ -69,7 +69,7 @@ public class LoginWindow extends JFrame{
 		inputPanel.setBorder(new EmptyBorder(20,20,0,20));
 		buttonPanel.setBorder(new EmptyBorder(20,20,15,20));
 		login.addActionListener(loginListener);
-		signupListener.addActionListener(signupListener);
+		signup.addActionListener(signupListener);
 	}
 /*
 	public static void main(String[] args){

@@ -1,6 +1,7 @@
 package JTalk.client.controller;
 import JTalk.client.view.*;
 import javax.swing.*;
+import java.awt.event.*;
 
 public class LoginListener implements ActionListener{
 	private JTCView view;
@@ -13,6 +14,6 @@ public class LoginListener implements ActionListener{
 		System.out.println(view.loginWindow.serverIP.getText());
 		System.out.println(view.loginWindow.serverPort.getText());
 		System.out.println(view.loginWindow.userID.getText());
-		System.out.println(view.loginWindow.userPassword.getText());
+		System.out.println(view.loginWindow.userPassword.getPassword());
 	}
 }

@@ -1,6 +1,7 @@
 package JTalk.client.controller;
 import JTalk.client.view.*;
 import javax.swing.*;
+import java.awt.event.*;
 
 public class SignupListener implements ActionListener{
 	private JTCView view;
@@ -10,6 +11,6 @@ public class SignupListener implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
-		System.out.println("Press Sign up Button");
+		view.setSignupVisible(true);
 	}
 }
