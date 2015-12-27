@@ -8,9 +8,11 @@ SERVER_CONTROLLER = $(SERVER)controller/
 SERVER_UTIL = $(SERVER)util/
 UTIL = $(ROOT)util/
 CLIENT = $(ROOT)client/
-DIR = $(SERVER_MODEL) $(SERVER_MODEL) $(SERVER_CONTROLLER) $(SERVER_UTIL)
+CLIENT_VIEW = $(CLIENT)view/
+CLIENT_CONTROLLER = $(CLIENT)controller/
+DIR = $(SERVER_MODEL) $(SERVER_MODEL) $(SERVER_CONTROLLER) $(SERVER_UTIL) $(UTIL) $(CLIENT_VIEW) $(CLIENT_CONTROLLER)
 
-TARGET =  $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4)
+TARGET =  $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5) $(TARGET6)
 TARGET1 = $(SERVER_MODEL)JTDBAccount.class\
 			$(SERVER_MODEL)AccountAddResult.class\
 			$(SERVER_MODEL)AccountCheckResult.class\
@@ -30,26 +32,39 @@ TARGET1 = $(SERVER_MODEL)JTDBAccount.class\
 
 
 TARGET2 = $(UTIL)ClientPackage.class\
-			$(UTIL)CPFriendAns.class\
-			$(UTIL)CPFriendReq.class\
 			$(UTIL)CPLoginReq.class\
+			$(UTIL)CPLogout.class\
+			$(UTIL)CPMessageReceived.class\
 			$(UTIL)CPMessage.class\
 			$(UTIL)CPSignupReq.class\
 			$(UTIL)Message.class\
 			$(UTIL)Sender.class\
 			$(UTIL)SPLogin.class\
+			$(UTIL)ServerPackage.class\
 			$(UTIL)SPMessage.class\
 			$(UTIL)SPSignup.class\
 			$(UTIL)OfflineMessage.class
 
 TARGET3 = $(SERVER_UTIL)LoginLog.class\
 			$(SERVER_UTIL)LoginTable.class\
-			$(SERVER_UTIL)SignupLog.class
+			$(SERVER_UTIL)SignupLog.class\
+			$(SERVER_UTIL)LogoutLog.class\
+			$(SERVER_UTIL)MessageLog.class\
+			$(SERVER_UTIL)MessageReceivedLog.class
 
 TARGET4 = $(SERVER_CONTROLLER)JTCLoginoutManager.class\
 			$(SERVER_CONTROLLER)JTCSignupManager.class\
 			$(SERVER_CONTROLLER)JTCMessageManager.class\
 			$(SERVER_CONTROLLER)JTCMessageReceivedManager.class\
+			$(SERVER_CONTROLLER)JTCJobManager.class\
+			$(SERVER_CONTROLLER)JTCListener.class\
+			$(SERVER_CONTROLLER)JTController.class
+
+TARGET5 = $(CLIENT_VIEW)LoginWindow.class\
+			$(CLIENT_VIEW)JTCView.class
+
+TARGET6 = $(CLIENT_CONTROLLER)LoginListener.class\
+			$(CLIENT_CONTROLLER)SignupListener.class
 
 
 
@@ -66,6 +81,12 @@ $(TARGET3): $(@:%.class=%.java)
 	@ javac $(@:%.class=%.java)
 
 $(TARGET4): $(@:%.class=%.java)
+	@ javac $(@:%.class=%.java)
+
+$(TARGET5): $(@:%.class=%.java)
+	@ javac $(@:%.class=%.java)
+
+$(TARGET6): $(@:%.class=%.java)
 	@ javac $(@:%.class=%.java)
 
 
