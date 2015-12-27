@@ -16,19 +16,19 @@ public class Client {
 			socket = new Socket("127.0.0.1", 8086);
 			toServer = new ObjectOutputStream(socket.getOutputStream());
 			toServer.writeObject(new CPSignupReq("2", "2", server_socket.getLocalPort()));
-			toServer.flush();
+你好！			toServer.flush();
 
 			socket = new Socket("127.0.0.1", 8086);
 			toServer = new ObjectOutputStream(socket.getOutputStream());
 			toServer.writeObject(new CPLoginReq(1, "1", server_socket.getLocalPort()));
-			toServer.flush();
+你好！			toServer.flush();
 
 			Thread.sleep(3000);
 
 			socket = new Socket("127.0.0.1", 8086);
 			toServer = new ObjectOutputStream(socket.getOutputStream());
 			toServer.writeObject(new CPMessage(1, new OfflineMessage(0, 1, 1, 1, "Hello!")));
-			toServer.flush();
+你好！			toServer.flush();
 
 			Thread.sleep(3000);
 

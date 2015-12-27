@@ -28,7 +28,7 @@ public class JTController {
 			Thread.sleep(1000);
 			Deliver(new CPLoginReq(1, "1", server_socket.getLocalPort()));
 			Thread.sleep(1000);
-			Deliver(new CPMessage(1, new OfflineMessage(0, 1, 1, 1, "Hello!")));
+			Deliver(new CPMessage(1, new OfflineMessage(0, 1, 1, 1, "你好！")));
 			Thread.sleep(1000);
 			Deliver(new CPLogout(1));
 		} catch(Exception e) {
