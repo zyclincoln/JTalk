@@ -23,12 +23,21 @@ public class FriendListRender implements ListCellRenderer{
 		}
 		cell.setText(text);
 		if(isSelected){
-			cell.setForeground(list.getSelectionForeground());
-			cell.setBackground(list.getSelectionBackground());
+			if(unreadMessageNum!=0){
+				cell.setBackground(Color.CYAN);
+			}
+			else{
+				cell.setBackground(list.getBackground());
+			}
 		}
 		else{
+			if(unreadMessageNum!=0){
+				cell.setBackground(Color.CYAN);
+			}
+			else{
+				cell.setBackground(list.getBackground());
+			}
 			cell.setForeground(list.getForeground());
-			cell.setBackground(list.getBackground());
 		}
 		cell.setBorder(cellHasFocus? lineBorder : emptyBorder);
 		return cell;

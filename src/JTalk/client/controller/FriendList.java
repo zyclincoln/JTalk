@@ -83,4 +83,15 @@ public class FriendList{
 		return friend.size();
 	}
 
+	public String toString(){
+		String result=new String();
+		for(int i=0;i<friend.size();i++){
+			result+=friend.get(i).GetID();
+			result+=friend.get(i).GetName();
+			result+=friend.get(i).GetUnreadMessageNum();
+			result+=friend.get(i).IsChatting();
+			result+="\n";
+		}
+		return result;
+	}
 }
