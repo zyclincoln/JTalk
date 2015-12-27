@@ -73,11 +73,14 @@ public class ChatWindow extends JFrame{
 
 		send.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				String content = sendContents.getText();
+				long time = date.getTime();
 				contents.append("Me  "+sdf.format(date.getTime())+"\n\n");
-				contents.append("   "+sendContents.getText()+"\n\n");
+				contents.append("   "+content+"\n\n");
 				contents.setCaretPosition(contents.getText().length());
 				sendContents.setText("");
 
+				view.controller.Deliver(new CPMessage(id, new OfflineMessage(0, view.controller.me, 0, time, content)));
 			}
 		});
 

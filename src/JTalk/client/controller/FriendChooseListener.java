@@ -33,11 +33,13 @@ public class FriendChooseListener extends MouseAdapter{
 				friendList.ClearUnreadMessage(index);
 				friendList.SetChattingbyIndex(index,true);
 				viewList.repaint();
+
 				int friend_id = friendList.getID(index);
-				System.out.println("here");
-				ArrayList<UnreadMessage> unread_message = view.controller.database.GetUnreadMessage(view.controller.me, friend_id);
-				System.out.println("here");
-				view.createChatWindow(friend_id, friendList.GetNamebyIndex(index), unread_message);
+				if(friendList.getChatWindow(friend_id) == null) {
+					ArrayList<UnreadMessage> unread_message = view.controller.database.GetUnreadMessage(view.controller.me, friend_id);
+					ChatWindow cw = view.createChatWindow(friend_id, friendList.GetNamebyIndex(index), unread_message);
+					friendList.addChatWindow(index, cw);
+				}
 			}
 		}
 	}

@@ -37,13 +37,14 @@ public class JTCView{
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public void createChatWindow(int id, String name, ArrayList<UnreadMessage> messageSet){
+	public ChatWindow createChatWindow(int id, String name, ArrayList<UnreadMessage> messageSet){
 		ChatWindow chatWindow= new ChatWindow(this,controller.friendList,id,name,messageSet);
 		
 		chatWindow.setTitle("Chat with "+name);
 		chatWindow.setSize(600,600);
 		chatWindow.setLocationRelativeTo(null);
 		chatWindow.setVisible(true);
+		return chatWindow;
 	}
 
 	public void setLoginVisible(boolean show){

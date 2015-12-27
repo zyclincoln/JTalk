@@ -13,7 +13,7 @@ public class JTController {
 	JTCView view;
 	public FriendList friendList;
 	ServerSocket server_socket;
-	int me;
+	public int me;
 
 	public JTController() {
 		database = new JTDatabase();
@@ -88,6 +88,11 @@ public class JTController {
 	}
 
 	synchronized public void ProcessMessage(SPMessage message) {
+		database.AddMessage(me, message.offline_message);
+
+		int friend_id = message.offline_message.sender_id;
+		view.addUnreadMessage(friend_id, new UnreadMessage(message.offline_message));
+
 		System.out.println(message.offline_message.content);
 		Deliver(new CPMessageReceived(1, message.offline_message.message_id));
 	}

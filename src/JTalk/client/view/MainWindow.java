@@ -1,5 +1,7 @@
 package JTalk.client.view;
+
 import JTalk.client.controller.*;
+import JTalk.util.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -45,10 +47,10 @@ public class MainWindow extends JFrame {
 
 		addWindowListener(new WindowAdapter(){
 			public void windowClosed(WindowEvent event){
-
+				view.controller.Deliver(new CPLogout(view.controller.me));
 			}
 			public void windowClosing(WindowEvent event){
-
+				view.controller.Deliver(new CPLogout(view.controller.me));
 			}
 		});
 	}
