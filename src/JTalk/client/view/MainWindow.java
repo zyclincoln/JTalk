@@ -29,7 +29,7 @@ public class MainWindow extends JFrame {
 		friendList.setCellRenderer(friendListRender);
 
 		idCard.setPreferredSize(new Dimension(200,50));
-		friendList.setPreferredSize(new Dimension(200,800));
+		friendList.setPreferredSize(new Dimension(200,400));
 
 		holdPanel.setLayout(new BoxLayout(holdPanel,BoxLayout.Y_AXIS));
 		holdPanel.add(idCard);
