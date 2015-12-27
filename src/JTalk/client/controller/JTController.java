@@ -9,7 +9,7 @@ import java.net.*;
 public class JTController {
 	JTDatabase database;
 	Sender sender;
-	JTCView jtcview;
+	JTCView view;
 	FriendList friendList;
 	ServerSocket server_socket;
 	int me_id;
@@ -20,10 +20,10 @@ public class JTController {
 		LoginListener loginListener=new LoginListener();
 		SignupListener signupListener=new SignupListener();
 		SignupConfirmListener signupConfirmListener=new SignupConfirmListener();
-		jtcview=new JTCView(this,loginListener,signupListener,signupConfirmListener);
-		loginListener.addView(jtcview);
-		signupListener.addView(jtcview);
-		signupConfirmListener.addView(jtcview);
+		view=new JTCView(this,loginListener,signupListener,signupConfirmListener);
+		loginListener.addView(view);
+		signupListener.addView(view);
+		signupConfirmListener.addView(view);
 		friendList=new FriendList();
 	}
 
@@ -36,7 +36,7 @@ public class JTController {
 			server_socket = new ServerSocket(0);
 			Thread thread_listener = new Thread(new JTCListener(server_socket, this));
 			thread_listener.start();
-			jtcview.setLoginVisible(true);
+			view.setLoginVisible(true);
 //			Deliver(new CPSignupReq("2", "2", server_socket.getLocalPort()));
 //			Thread.sleep(1000);
 //			Deliver(new CPLoginReq(1, "1", server_socket.getLocalPort()));
@@ -55,7 +55,7 @@ public class JTController {
 
 	public void Signup(SPSignup signup) {
 		System.out.println(signup.id);
-	//	JOptionPane.showMessageDialog(newFrame.getContentPane(), "" + signup.id, "Signup Success", JOptionPane.INFORMATION_MESSAGE);
+		view.showMessage("Your new account ID is: " + signup.id, "Signup Success");
 	}
 
 	public void Login(SPLogin login) {

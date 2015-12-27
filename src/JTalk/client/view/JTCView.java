@@ -34,8 +34,6 @@ public class JTCView{
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public 
-
 	public void setLoginVisible(boolean show){
 		loginWindow.setVisible(show);
 	}
@@ -47,6 +45,11 @@ public class JTCView{
 	public void setMainWindowVisible(boolean show){
 		mainWindow.setVisible(show);
 	}
+
+	public void showMessage(String message, String title) {
+		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+	}
+
 /*
 	public static void main(String[] args){
 		LoginListener loginListener=new LoginListener();
