@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 public class ChatWindow extends JFrame{
 	private JLabel idInfo;
-	private JLabel nameInfo;
+	public JLabel nameInfo;
 	private JTextArea contents;
 	public JTextArea sendContents;
 	private JButton send;
@@ -41,10 +41,18 @@ public class ChatWindow extends JFrame{
 
 		for(int i=0;i<messageSet.size();i++){
 			Date date=new Date(message.get(i).time());
-			
-			contents.append(message.get(i).)
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:nn:ss");
+			contents.append(name+ "  " +sdf.format(date));
+			contents.append(message.get(i).content);
 		}
 
+		contents.setWrapStyleWord(true);
+		contents.setLineWrap(true);
+		contents.setEditable(false);
+
+		sendContents.setEditable(true);
+		sendContents.setLineWrap(true);
+		sendContents.setWrapStyleWord(true);
 	}
 	
 }
