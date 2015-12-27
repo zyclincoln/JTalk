@@ -11,7 +11,7 @@ public class JTDatabase {
 
 	public void Init() {
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
 			statement = connection.createStatement();
 		} catch(Exception e) {
@@ -21,6 +21,8 @@ public class JTDatabase {
 
 	public void AddAccount(int id, HashMap<Integer, String> friends) {
 		try {
+			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
+			statement = connection.createStatement();
 			statement.executeUpdate("create table Friend" + id + " (id int, name char(20), unread_num int, primary key(id))");
 			System.out.println("Account " + id + " added");
 		} catch(Exception e) {
@@ -78,6 +80,8 @@ public class JTDatabase {
 	public int GetUnreadMessageNum(int id, int friend_id) {
 		try {
 			ResultSet result = statement.executeQuery("select unread_num from Friend" + id + " where id = " + friend_id);
+			result.next();
+			System.out.println("Number of " + id + "'s unread messages from " + friend_id + " got");
 			return result.getInt("unread_num");
 		} catch(Exception e) {
 			System.out.println(e);
@@ -93,6 +97,7 @@ public class JTDatabase {
 				al.add(new UnreadMessage(result.getInt("type"), result.getLong("time"), result.getString("content")));
 			}
 			statement.executeUpdate("update Message" + id + "_" + friend_id + " set is_unread = 0 where is_unread = 1");
+			statement.executeUpdate("update Friend" + id + " set unread_num = 0 where id = " + friend_id);
 			System.out.println(id + "'s unread messages from " + friend_id + " got");
 			Comparator<UnreadMessage> comparator = new Comparator<UnreadMessage>() {
 				public int compare(UnreadMessage um1, UnreadMessage um2) {
