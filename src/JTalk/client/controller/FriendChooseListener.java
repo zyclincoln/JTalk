@@ -1,15 +1,22 @@
 package JTalk.client.controller;
+
+import JTalk.client.view.*;
+import JTalk.client.model.*;
+
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.event.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class FriendChooseListener extends MouseAdapter{
 	private FriendList friendList;
 	private JList viewList;
+	private JTCView view;
 
-	public FriendChooseListener(FriendList friendList){
+	public FriendChooseListener(JTCView view, FriendList friendList){
 		this.friendList=friendList;
+		this.view = view;
 	}
 
 	public void setViewList(JList list){
@@ -26,6 +33,11 @@ public class FriendChooseListener extends MouseAdapter{
 				friendList.ClearUnreadMessage(index);
 				friendList.SetChattingbyIndex(index,true);
 				viewList.repaint();
+				int friend_id = friendList.getID(index);
+				System.out.println("here");
+				ArrayList<UnreadMessage> unread_message = view.controller.database.GetUnreadMessage(view.controller.me, friend_id);
+				System.out.println("here");
+				view.createChatWindow(friend_id, friendList.GetNamebyIndex(index), unread_message);
 			}
 		}
 	}

@@ -13,8 +13,7 @@ public class JTCView{
 	public LoginWindow loginWindow;
 	public SignupWindow signupWindow;
 	public MainWindow mainWindow;
-	public JTCView(JTCView view, JTController controller, ActionListener loginListener, ActionListener signupListener,ActionListener signupConfirm){
-		this.view=view;
+	public JTCView(JTController controller, ActionListener loginListener, ActionListener signupListener,ActionListener signupConfirm){
 		this.controller = controller;
 		loginWindow=new LoginWindow(loginListener,signupListener);
 		signupWindow=new SignupWindow(signupConfirm);
@@ -40,6 +39,7 @@ public class JTCView{
 
 	public void createChatWindow(int id, String name, ArrayList<UnreadMessage> messageSet){
 		ChatWindow chatWindow= new ChatWindow(this,controller.friendList,id,name,messageSet);
+		
 		chatWindow.setTitle("Chat with "+name);
 		chatWindow.setSize(600,600);
 		chatWindow.setLocationRelativeTo(null);

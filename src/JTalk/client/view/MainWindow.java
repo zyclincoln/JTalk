@@ -14,8 +14,8 @@ public class MainWindow extends JFrame {
 	private FriendListRender friendListRender;
 	private JLabel idCard;
 	private JPanel holdPanel;
-	public MainWindow(int id, String name, FriendList list, MouseListener chooseFriend){
-		
+	public MainWindow(JTCView view, int id, String name, FriendList list, MouseListener chooseFriend){
+		this.view = view;
 		friendListModel=new DefaultListModel();
 		//friendList=new JList();
 		friendList=new JList(friendListModel);

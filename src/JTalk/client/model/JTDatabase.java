@@ -39,6 +39,12 @@ public class JTDatabase {
 			}
 		} catch(Exception e) {
 			System.out.println(e);
+		} finally {
+			try {
+				connection.close();
+			} catch(Exception e) {
+				System.out.println(e);
+			}
 		}
 	}
 
@@ -51,6 +57,12 @@ public class JTDatabase {
 			System.out.println(id + "'s friend " + friend_id + " added");
 		} catch(Exception e) {
 			System.out.println(e);
+		} finally {
+			try {
+				connection.close();
+			} catch(Exception e) {
+				System.out.println(e);
+			}
 		}
 	}
 
@@ -63,6 +75,12 @@ public class JTDatabase {
 			System.out.println(id + "'s message from " + offline_message.sender_id + " added");
 		} catch(Exception e) {
 			System.out.println(e);
+		} finally {
+			try {
+				connection.close();
+			} catch(Exception e) {
+				System.out.println(e);
+			}
 		}
 	}
 
@@ -80,6 +98,12 @@ public class JTDatabase {
 		} catch(Exception e) {
 			System.out.println(e);
 			return null;
+		} finally {
+			try {
+				connection.close();
+			} catch(Exception e) {
+				System.out.println(e);
+			}
 		}
 	}
 
@@ -94,6 +118,12 @@ public class JTDatabase {
 		} catch(Exception e) {
 			System.out.println(e);
 			return 0;
+		} finally {
+			try {
+				connection.close();
+			} catch(Exception e) {
+				System.out.println(e);
+			}
 		}
 	}
 
@@ -101,13 +131,16 @@ public class JTDatabase {
 		try {
 			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
 			statement = connection.createStatement();
-			ArrayList<UnreadMessage> al = new ArrayList<UnreadMessage>();
 			ResultSet result = statement.executeQuery("select * from Message" + id + "_" + friend_id + " where is_unread = 1");
+			ArrayList<UnreadMessage> al = new ArrayList<UnreadMessage>();
 			while(result.next()) {
+				System.out.println(result.getString("content"));
 				al.add(new UnreadMessage(result.getInt("type"), result.getLong("time"), result.getString("content")));
 			}
 			statement.executeUpdate("update Message" + id + "_" + friend_id + " set is_unread = 0 where is_unread = 1");
+			System.out.println("a");
 			statement.executeUpdate("update Friend" + id + " set unread_num = 0 where id = " + friend_id);
+			System.out.println("b");
 			System.out.println(id + "'s unread messages from " + friend_id + " got");
 			Comparator<UnreadMessage> comparator = new Comparator<UnreadMessage>() {
 				public int compare(UnreadMessage um1, UnreadMessage um2) {
@@ -123,6 +156,8 @@ public class JTDatabase {
 		} catch(Exception e) {
 			System.out.println(e);
 			return null;
+		} finally {
+
 		}
 	}
 
@@ -135,6 +170,12 @@ public class JTDatabase {
 			System.out.println(id + "'s friend " + friend_id + " removed");
 		} catch(Exception e) {
 			System.out.println(e);
+		} finally {
+			try {
+				connection.close();
+			} catch(Exception e) {
+				System.out.println(e);
+			}
 		}
 	}
 

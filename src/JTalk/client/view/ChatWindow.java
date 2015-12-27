@@ -43,17 +43,21 @@ public class ChatWindow extends JFrame{
 		infoPanel.setLayout(new GridLayout(2,1,10,0));
 		infoPanel.add(idInfo);
 		infoPanel.add(nameInfo);
+		infoPanel.setMaximumSize(new Dimension(500, 50));
 
 		panel=new JPanel();
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 		panel.add(infoPanel);
 		panel.add(Box.createVerticalStrut(30));
 		contentScroll=new JScrollPane(contents);
-		contentScroll.setMinimumSize(new Dimension(500,300));
+		contentScroll.setPreferredSize(new Dimension(500,400));
+		//contentScroll.setMinimumSize(new Dimension(500,300));
 		panel.add(contentScroll);
 		panel.add(Box.createVerticalStrut(30));
 		sendScroll=new JScrollPane(sendContents);
-		sendScroll.setMinimumSize(new Dimension(500,150));
+		sendScroll.setPreferredSize(new Dimension(500,100));
+		//sendScroll.setMinimumSize(new Dimension(500,200));
+		//sendScroll.setMaximumSize(new Dimension(500,200));
 		panel.add(sendScroll);
 		panel.add(Box.createVerticalStrut(30));
 		panel.setBorder(new EmptyBorder(10,10,10,10));

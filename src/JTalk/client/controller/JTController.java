@@ -78,7 +78,7 @@ public class JTController {
 				friendList.InsertFriend(friend_id, (String)entry.getValue());
 				friendList.AddMessagebyID(friend_id, database.GetUnreadMessageNum(me, friend_id));
 			}
-			FriendChooseListener friendChooseListener = new FriendChooseListener(friendList);
+			FriendChooseListener friendChooseListener = new FriendChooseListener(view, friendList);
 			view.createMainWindow(me, login.name, friendList, friendChooseListener);
 			friendChooseListener.setViewList(view.mainWindow.getListView());
 			view.setMainWindowVisible(true);
