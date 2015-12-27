@@ -59,6 +59,7 @@ public class JTCLoginoutManager{
 						loginTable.Login(id,loginIP,port);
 						if(loginTable.getSender(id).Deliver(reply)==0){
 							log = new LoginLog(true,result,"Login succeed : "+id);
+							database.ClearMessage(id);
 							return log;
 						}
 						else{

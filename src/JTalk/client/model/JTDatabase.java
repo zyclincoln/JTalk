@@ -44,6 +44,8 @@ public class JTDatabase {
 
 	public void AddFriend(int id, int friend_id, String friend_name) {
 		try {
+			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
+			statement = connection.createStatement();
 			statement.executeUpdate("insert into Friend" + id + " values(" + friend_id + ", '" + friend_name + "', 0)");
 			statement.executeUpdate("create table Message" + id + "_" + friend_id + " (type int, time bigint, content varchar(255), is_unread int)");
 			System.out.println(id + "'s friend " + friend_id + " added");
@@ -54,6 +56,8 @@ public class JTDatabase {
 
 	public void AddMessage(int id, OfflineMessage offline_message) {
 		try {
+			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
+			statement = connection.createStatement();
 			statement.executeUpdate("insert into Message" + id + "_" + offline_message.sender_id + " values(" + offline_message.type + ", " + offline_message.time + ", '" + offline_message.content + "', 1)");
 			statement.executeUpdate("update Friend" + id + " set unread_num = unread_num + 1 where id = " + offline_message.sender_id);
 			System.out.println(id + "'s message from " + offline_message.sender_id + " added");
@@ -64,6 +68,8 @@ public class JTDatabase {
 
 	public HashMap<Integer, Boolean> GetMessageState(int id) {
 		try {
+			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
+			statement = connection.createStatement();
 			HashMap<Integer, Boolean> map = new HashMap<Integer, Boolean>();
 			ResultSet result = statement.executeQuery("select id, unread_num from Friend" + id);
 			while(result.next()) {
@@ -79,6 +85,8 @@ public class JTDatabase {
 
 	public int GetUnreadMessageNum(int id, int friend_id) {
 		try {
+			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
+			statement = connection.createStatement();
 			ResultSet result = statement.executeQuery("select unread_num from Friend" + id + " where id = " + friend_id);
 			result.next();
 			System.out.println("Number of " + id + "'s unread messages from " + friend_id + " got");
@@ -91,6 +99,8 @@ public class JTDatabase {
 
 	public ArrayList<UnreadMessage> GetUnreadMessage(int id, int friend_id) {
 		try {
+			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
+			statement = connection.createStatement();
 			ArrayList<UnreadMessage> al = new ArrayList<UnreadMessage>();
 			ResultSet result = statement.executeQuery("select * from Message" + id + "_" + friend_id + " where is_unread = 1");
 			while(result.next()) {
@@ -118,6 +128,8 @@ public class JTDatabase {
 
 	public void DeleteFriend(int id, int friend_id) {
 		try {
+			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
+			statement = connection.createStatement();
 			statement.executeUpdate("drop table Message" + id + "_" + friend_id);
 			statement.executeUpdate("delete from Friend" + id + " where id = " + friend_id);
 			System.out.println(id + "'s friend " + friend_id + " removed");
