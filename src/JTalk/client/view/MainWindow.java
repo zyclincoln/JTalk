@@ -8,6 +8,7 @@ import javax.swing.event.*;
 import java.awt.event.*;
 
 public class MainWindow extends JFrame {
+	private JTCView view;
 	private DefaultListModel friendListModel;
 	private JList<String> friendList;
 	private FriendListRender friendListRender;
