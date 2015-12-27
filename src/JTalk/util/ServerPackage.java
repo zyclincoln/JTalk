@@ -1,6 +1,7 @@
 package JTalk.util;
+
 import java.io.*;
 
-public class ServerPackage implements Serializable{
-	public int type;
+public class ServerPackage extends JTPackage implements Serializable {
+
 }
