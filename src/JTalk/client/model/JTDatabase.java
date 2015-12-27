@@ -21,7 +21,11 @@ public class JTDatabase {
 
 	void AddAccount(int id, HashMap<Integer, String> friends) {
 		try {
-			statement.executeUpdate("CREATE TABLE Friend" + id + " (id int, name char(20))");
+			statement.executeUpdate("CREATE TABLE Friend" + id + " (id int, name char(20), primary key(id))");
+		} catch(Exception e) {
+			System.out.println(e);
+		}
+		try {
 			Iterator it;
 			if(friends != null) {
 				it = friends.entrySet().iterator();
@@ -37,16 +41,16 @@ public class JTDatabase {
 
 	void AddFriend(int id, int friend_id, String friend_name) {
 		try {
-			statement.executeUpdate("insert into Friend" + id + " values(" + friend_id + ", " + friend_name + ")");
+			statement.executeUpdate("insert into Friend" + id + " values(" + friend_id + ", '" + friend_name + "')");
 			statement.executeUpdate("create table Message" + id + "_" + friend_id + " (type int, time bigint, content varchar(255))");		
 		} catch(Exception e) {
 			System.out.println(e);
 		}
 	}
 
-	void AddMesasge(int id, OfflineMessage offline_message) {
+	void AddMessage(int id, OfflineMessage offline_message) {
 		try {
-			statement.executeUpdate("insert into Message" + id + "_" + offline_message.sender_id + " values(" + offline_message.type + ", " + offline_message.time + ", " + offline_message.content + ")");
+			statement.executeUpdate("insert into Message" + id + "_" + offline_message.sender_id + " values(" + offline_message.type + ", " + offline_message.time + ", '" + offline_message.content + "')");
 		} catch(Exception e) {
 			System.out.println(e);
 		}
@@ -59,7 +63,12 @@ public class JTDatabase {
 	public static void main(String[] args) {
 		JTDatabase db = new JTDatabase();
 		db.Init();
-		db.AddAccount(1, null);
+		HashMap<Integer, String> map = new HashMap<Integer, String>();
+		map.put(2, "2");
+		map.put(3, "3");
+		db.AddAccount(1, map);
+		db.AddFriend(1, 4, "4");
+		db.AddMessage(1, new OfflineMessage(0, 2, 2, 2, "2"));
 		db.Terminate();
 	}
 }
