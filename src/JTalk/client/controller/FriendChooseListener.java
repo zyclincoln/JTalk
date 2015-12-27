@@ -25,7 +25,7 @@ public class FriendChooseListener extends MouseAdapter{
 				int index=viewList.getSelectedIndex();
 				friendList.ClearUnreadMessage(index);
 				friendList.SetChattingbyIndex(index,true);
-				System.out.println(friendList);
+				viewList.repaint();
 			}
 		}
 	}

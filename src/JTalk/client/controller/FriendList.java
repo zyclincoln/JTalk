@@ -40,7 +40,7 @@ public class FriendList{
 			this.chatWindow=null;
 		}
 		public ChatWindow getChatWindow(){
-			return chatWindow();
+			return chatWindow;
 		}
 		public int GetID(){
 			return id;
@@ -66,13 +66,14 @@ public class FriendList{
 	}
 
 	public void addChatWindow(int index,ChatWindow chatWindow){
-		friend.get(index).addChatWindow(charWindow);
+		friend.get(index).addChatWindow(chatWindow);
 	}
 
 	public void closeChatWindow(int id){
 		for(int i=0;i<friend.size();i++){
 			if(friend.get(i).GetID()==id){
 				friend.get(i).closeChatWindow();
+				friend.get(i).SetChatting(false);
 			}
 		}
 	}
@@ -126,6 +127,7 @@ public class FriendList{
 			result+=friend.get(i).GetName();
 			result+=friend.get(i).GetUnreadMessageNum();
 			result+=friend.get(i).IsChatting();
+			result+=friend.get(i).getChatWindow();
 			result+="\n";
 		}
 		return result;
