@@ -20,7 +20,7 @@ public class ControllerDemo{
 		signupConfirmListener.addView(jtcview);
 		//jtcview.setLoginVisible(true);
 
-		friendList friendList=new FriendList();
+		FriendList friendList=new FriendList();
 		friendList.InsertFriend(4113,"zyclincoln");
 		friendList.InsertFriend(1010,"Chaosink");
 		nULL.setFriendList(friendList);

@@ -10,7 +10,7 @@ import java.text.*;
 import javax.swing.border.*;
 
 public class ChatWindow extends JFrame{
-	private FriendList friendList;
+	public FriendList friendList;
 	private JLabel idInfo;
 	public JLabel nameInfo;
 	private JTextArea contents;
@@ -24,7 +24,7 @@ public class ChatWindow extends JFrame{
 	private SimpleDateFormat sdf;
 	private Date date;
 	private int id;
-	public ChatWindow(FriendList friendList, int id, String name, ArrayList<UnreadMessage> messageSet){
+	public ChatWindow(final FriendList friendList, final int id, String name, ArrayList<UnreadMessage> messageSet){
 		this.friendList=friendList;
 		this.id=id;
 		sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -86,12 +86,16 @@ public class ChatWindow extends JFrame{
 		sendContents.setEditable(true);
 		sendContents.setLineWrap(true);
 		sendContents.setWrapStyleWord(true);
+
+		addWindowListener(new WindowAdapter(){
+			public void windowClosed(WindowEvent event){
+				friendList.closeChatWindow(id);
+				System.out.println(friendList);
+			}
+			public void windowClosing(WindowEvent event){
+				friendList.closeChatWindow(id);
+				System.out.println(friendList);
+			}
+		});
 	}
-	
-	addWindowListener(new WindowListener(){
-		public void windowClosed(WindowEvent event){
-			friendList.closeChatWindow(id);
-			System.out.println(friendList);
-		}
-	});
 }
