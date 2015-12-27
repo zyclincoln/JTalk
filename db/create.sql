@@ -1,6 +1,6 @@
 drop database JTalk;
 
-create database JTalk DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+create database JTalk;
 
 use JTalk;
 
