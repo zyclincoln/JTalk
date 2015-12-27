@@ -1,5 +1,6 @@
 package JTalk.client.view;
 import JTalk.client.controller.*;
+import JTalk.client.model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -36,8 +37,8 @@ public class JTCView{
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public void createChatWindow(int id, String name, ArrayList<OfflineMessage> messageSet){
-		ChatWindow chatWindow= new ChatWindow(id,name,messageSet);
+	public void createChatWindow(int id, String name, ArrayList<UnreadMessage> messageSet){
+		ChatWindow chatWindow= new ChatWindow(controller.friendList,id,name,messageSet);
 		chatWindow.setTitle("Chat with "+name);
 		chatWindow.setSize(600,600);
 		chatWindow.setLocationRelativeTo(null);

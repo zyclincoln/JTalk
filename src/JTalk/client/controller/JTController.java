@@ -11,7 +11,7 @@ public class JTController {
 	JTDatabase database;
 	Sender sender;
 	JTCView view;
-	FriendList friendList;
+	public FriendList friendList;
 	ServerSocket server_socket;
 	int me;
 
@@ -99,5 +99,9 @@ public class JTController {
 
 	public void setMe(int id) {
 		this.me = id;
+	}
+
+	public void setFriendList(FriendList friendList){
+		this.friendList=friendList;
 	}
 }

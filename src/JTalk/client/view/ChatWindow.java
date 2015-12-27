@@ -1,4 +1,6 @@
 package JTalk.client.view;
+import JTalk.client.model.*;
+import JTalk.client.controller.*;
 import JTalk.util.*;
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +10,7 @@ import java.text.*;
 import javax.swing.border.*;
 
 public class ChatWindow extends JFrame{
+	private FriendList friendList;
 	private JLabel idInfo;
 	public JLabel nameInfo;
 	private JTextArea contents;
@@ -20,7 +23,10 @@ public class ChatWindow extends JFrame{
 	private JScrollPane contentScroll;
 	private SimpleDateFormat sdf;
 	private Date date;
-	public ChatWindow(int id, String name, ArrayList<OfflineMessage> messageSet){
+	private int id;
+	public ChatWindow(FriendList friendList, int id, String name, ArrayList<UnreadMessage> messageSet){
+		this.friendList=friendList;
+		this.id=id;
 		sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		date=new Date();
 		idInfo=new JLabel("    "+((Integer)id).toString());
@@ -82,4 +88,10 @@ public class ChatWindow extends JFrame{
 		sendContents.setWrapStyleWord(true);
 	}
 	
+	addWindowListener(new WindowListener(){
+		public void windowClosed(WindowEvent event){
+			friendList.closeChatWindow(id);
+			System.out.println(friendList);
+		}
+	});
 }
