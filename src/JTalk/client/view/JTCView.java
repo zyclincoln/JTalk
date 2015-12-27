@@ -3,6 +3,8 @@ import JTalk.client.controller.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import JTalk.util.*;
 
 
 public class JTCView{
@@ -32,7 +34,13 @@ public class JTCView{
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public 
+	public void createChatWindow(int id, String name, ArrayList<OfflineMessage> messageSet){
+		ChatWindow chatWindow= new ChatWindow(id,name,messageSet);
+		chatWindow.setTitle("Chat with "+name);
+		chatWindow.setSize(600,600);
+		chatWindow.setLocationRelativeTo(null);
+		chatWindow.setVisible(true);
+	}
 
 	public void setLoginVisible(boolean show){
 		loginWindow.setVisible(show);
