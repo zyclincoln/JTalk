@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class JTCView{
 	public LoginWindow loginWindow;
 
-	public JTCView(ButtonListener loginListener, ButtonListener signupListener){
+	public JTCView(ActionListener loginListener, ActionListener signupListener){
 		loginWindow=new LoginWindow(loginListener,signupListener);
 		loginWindow.setTitle("JTalk");
 		loginWindow.setSize(400,200);
