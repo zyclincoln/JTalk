@@ -14,7 +14,7 @@ public class JTCMessageReceivedManager {
 	MessageReceivedLog DeleteMessage(int id, int message_id) {
 		DeleteMessageResult delete_message_result = database.DeleteMessage(id, message_id);
 		if(delete_message_result.result_number == 0) {
-			return new MessageReceivedLog(0, null);
+			return new MessageReceivedLog(0, delete_message_result.toMessage());
 		} else if(delete_message_result.result_number == 1) {
 			return new MessageReceivedLog(1, delete_message_result.toMessage());
 		}

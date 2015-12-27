@@ -1,64 +1,65 @@
 package JTalk.client.model;
 
+import JTalk.util.*;
+
 import java.sql.*;
+import java.util.*;
 
 public class JTDatabase {
-	private static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
-	private static String protocol = "jdbc:derby:";
-	String dbName = "firstdb";
+	Connection connection;
+	private Statement statement;
 
-	static void loadDriver() {
+	void Init() {
 		try {
-			Class.forName(driver).newInstance();
-			System.out.println("Loaded the appropriate driver");
-		} catch (Exception e) {
-			e.printStackTrace();
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
+			connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
+			statement = connection.createStatement();
+		} catch(Exception e) {
+			System.out.println(e);
 		}
 	}
 
-	public void doIt() {
-		Connection conn = null;
-		Statement s = null;
-		ResultSet rs = null;
-
-		System.out.println("starting");
+	void AddAccount(int id, HashMap<Integer, String> friends) {
 		try {
-			conn = DriverManager.getConnection(protocol + dbName
-			+ ";create=true");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("Connected to and created database " + dbName);
-
-		try {
-			s=conn.createStatement();
-			s.executeUpdate("create table firsttable(id int)");
-			s.executeUpdate("")
-			rs=s.executeQuery("select * from firsttable");
-
-			while (rs.next()) {
-				System.out.println(rs.getInt(1));
-				System.out.println(rs.getString(2));
+			statement.executeUpdate("CREATE TABLE Friend" + id + " (id int, name char(20))");
+			Iterator it;
+			if(friends != null) {
+				it = friends.entrySet().iterator();
+				while(it.hasNext()) {
+					Map.Entry entry = (Map.Entry)it.next();
+					AddFriend(id, (Integer)entry.getKey(), (String)entry.getValue());
+				}
 			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch(Exception e) {
+			System.out.println(e);
 		}
+	}
+
+	void AddFriend(int id, int friend_id, String friend_name) {
 		try {
-			conn.close();
-			conn = null;
-			s.close();
-			s = null;
-			rs.close();
-			rs = null;
-		} catch (Exception e) {
-			e.printStackTrace();
+			statement.executeUpdate("insert into Friend" + id + " values(" + friend_id + ", " + friend_name + ")");
+			statement.executeUpdate("create table Message" + id + "_" + friend_id + " (type int, time bigint, content varchar(255))");		
+		} catch(Exception e) {
+			System.out.println(e);
 		}
+	}
+
+	void AddMesasge(int id, OfflineMessage offline_message) {
+		try {
+			statement.executeUpdate("insert into Message" + id + "_" + offline_message.sender_id + " values(" + offline_message.type + ", " + offline_message.time + ", " + offline_message.content + ")");
+		} catch(Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	void Terminate() {
+
 	}
 
 	public static void main(String[] args) {
-		Test t = new Test();
-		t.loadDriver();
-		t.doIt();
+		JTDatabase db = new JTDatabase();
+		db.Init();
+		db.AddAccount(1, null);
+		db.Terminate();
 	}
 }

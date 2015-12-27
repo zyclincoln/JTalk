@@ -60,7 +60,7 @@ public class JTCJobManager implements Runnable{
 			}
 			case 3:{
 				CPMessageReceived messageReceived=(CPMessageReceived)cp;
-				MessageReceivedLog log=messageReceiveManager.DeleteMessage(messageReceived.id,messageReceived.global_message_id);
+				MessageReceivedLog log=messageReceiveManager.DeleteMessage(messageReceived.id,messageReceived.message_id);
 				System.out.println(log.toMessage());
 				break;
 			}
@@ -68,6 +68,7 @@ public class JTCJobManager implements Runnable{
 				CPLogout logout=(CPLogout)cp;
 				LogoutLog log=loginoutManager.Logout(logout.id);
 				System.out.println(log.toMessage());
+				break;
 			}
 			default:{
 				System.out.println("Warning!!!: Received Unknown Package. From "+client.getInetAddress().getHostAddress());

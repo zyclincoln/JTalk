@@ -10,22 +10,31 @@ public class JTClient {
 		try {
 			ServerSocket server_socket = new ServerSocket(0);
 			new Thread(new Listener(server_socket)).start();
+			Socket socket;
+			ObjectOutputStream toServer;
 
-			Socket socket = new Socket("127.0.0.1", 8086);
-			ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
+			socket = new Socket("127.0.0.1", 8086);
+			toServer = new ObjectOutputStream(socket.getOutputStream());
 			toServer.writeObject(new CPSignupReq("2", "2", server_socket.getLocalPort()));
 			toServer.flush();
-			System.out.println("!");
 
 			socket = new Socket("127.0.0.1", 8086);
 			toServer = new ObjectOutputStream(socket.getOutputStream());
 			toServer.writeObject(new CPLoginReq(1, "1", server_socket.getLocalPort()));
 			toServer.flush();
-			System.out.println("!");
+
+			Thread.sleep(3000);
 
 			socket = new Socket("127.0.0.1", 8086);
 			toServer = new ObjectOutputStream(socket.getOutputStream());
-			toServer.writeObject(new CPMessage(2, new OfflineMessage(0, 1, 1, 1, "Hello!")));
+			toServer.writeObject(new CPMessage(1, new OfflineMessage(0, 1, 1, 1, "Hello!")));
+			toServer.flush();
+
+			Thread.sleep(3000);
+
+			socket = new Socket("127.0.0.1", 8086);
+			toServer = new ObjectOutputStream(socket.getOutputStream());
+			toServer.writeObject(new CPLogout(1));
 			toServer.flush();
 			System.out.println("!");
 		} catch(Exception e) {
@@ -55,9 +64,10 @@ class Listener implements Runnable {
 					case 1:
 						System.out.println(((SPLogin)sp).name);
 						break;
-					case 2:
+					case 2: {
 						System.out.println(((SPMessage)sp).offline_message.content);
 						break;
+					}
 					default:
 						break;
 				}

@@ -1,37 +1,32 @@
 package JTalk.client.model;
 
 import java.sql.*;
+import java.util.*;
 
 public class JTDBAccount {
-	JTDBAccount() {
+	Connection connection;
+	private PreparedStatement statement_get_friend;
+	private PreparedStatement statement_add_friend;
+	private PreparedStatement statement_delete_friend;
 
+	JTDBAccount(Connection connection) {
+		this.connection = connection;
 	}
 
-	void AddAccount(int id) {
+	void UpdateAccount(int id, HashMap<Integer,String> friends) {
+		
+
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-			Connection connection = DriverManager.getConnection("jdbc:derby:Account" + id + ";create=true");
+			Connection connection = DriverManager.getConnection("jdbc:derby:CDB;create=true");
 			connection.close();
-
 		} catch(Exception e) {
-			System.println(e);
-		}
-	}
-		try {
-			connection.close();
-			connection = null;
-			s.close();
-			s = null;
-			rs.close();
-			rs = null;
-		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e);
 		}
 	}
 
 	public static void main(String[] args) {
-		Test t = new Test();
-		t.loadDriver();
-		t.doIt();
+		JTDBAccount account = new JTDBAccount();
+		account.AddAccount(1);
 	}
 }

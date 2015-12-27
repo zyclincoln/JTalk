@@ -24,9 +24,9 @@ public class JTCMessageManager {
 		if(add_message_result.result_number == 0) {
 			Sender sender = login_table.getSender(receiver_id);
 			if(sender == null)
-				return new MessageLog(2, "Receiver is offline.");
+				return new MessageLog(2, "Receiver is offline." + add_message_result.toMessage());
 			sender.Deliver(new SPMessage(message));
-			return new MessageLog(0, null);
+			return new MessageLog(0, add_message_result.toMessage());
 		} else if(add_message_result.result_number == 1) {
 			return new MessageLog(1, add_message_result.toMessage());
 		}
