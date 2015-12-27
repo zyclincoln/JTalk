@@ -39,7 +39,7 @@ public class JTCView{
 	}
 
 	public void createChatWindow(int id, String name, ArrayList<UnreadMessage> messageSet){
-		ChatWindow chatWindow= new ChatWindow(controller.friendList,id,name,messageSet);
+		ChatWindow chatWindow= new ChatWindow(this,controller.friendList,id,name,messageSet);
 		chatWindow.setTitle("Chat with "+name);
 		chatWindow.setSize(600,600);
 		chatWindow.setLocationRelativeTo(null);

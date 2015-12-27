@@ -10,6 +10,7 @@ import java.text.*;
 import javax.swing.border.*;
 
 public class ChatWindow extends JFrame{
+	private JTCView view;
 	public FriendList friendList;
 	private JLabel idInfo;
 	public JLabel nameInfo;
@@ -25,7 +26,8 @@ public class ChatWindow extends JFrame{
 	private Date date;
 	private String name;
 	private int id;
-	public ChatWindow(final FriendList friendList, final int id, String name, ArrayList<UnreadMessage> messageSet){
+	public ChatWindow(JTCView view, final FriendList friendList, final int id, String name, ArrayList<UnreadMessage> messageSet){
+		this.view=view;
 		this.friendList=friendList;
 		this.id=id;
 		this.name=name;
