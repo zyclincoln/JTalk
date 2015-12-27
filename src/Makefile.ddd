@@ -80,9 +80,11 @@ TARGET11 = $(CLIENT_VIEW)LoginWindow.class\
 			$(CLIENT_VIEW)JTCView.class\
 			$(CLIENT_VIEW)SignupWindow.class\
 			$(CLIENT_VIEW)FriendListRender.class\
-			$(CLIENT_VIEW)MainWindow.class
+			$(CLIENT_VIEW)MainWindow.class\
+			$(CLIENT_VIEW)ChatWindow.class
 
 TARGET12 = $(CLIENT_CONTROLLER)JTController.class\
+			$(CLIENT_CONTROLLER)JTCListener.class\
 			$(CLIENT_CONTROLLER)LoginListener.class\
 			$(CLIENT_CONTROLLER)SignupListener.class\
 			$(CLIENT_CONTROLLER)SignupConfirmListener.class\
