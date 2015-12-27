@@ -61,6 +61,27 @@ public class JTCView{
 		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	public void addUnreadMessage(int id,UnreadMessage message){
+		if(controller.friendList.CheckChattingbyID(id)){
+			if(controller.friendList.getChatWindow(id)!=null){
+				controller.friendList.getChatWindow(id).addMessage(message);
+			}
+			else{
+				controller.friendList.AddMessagebyID(id,1);
+				if(mainWindow!=null){
+					mainWindow.repaint();
+				}
+			}
+		}
+		else{
+			controller.friendList.AddMessagebyID(id,1);
+			if(mainWindow!=null){
+				mainWindow.repaint();
+			}
+		}
+
+	}
+
 /*
 	public static void main(String[] args){
 		LoginListener loginListener=new LoginListener();

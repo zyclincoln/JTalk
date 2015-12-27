@@ -94,6 +94,15 @@ public class FriendList{
 		return friend.get(index).IsChatting();
 	}
 
+	public boolean CheckChattingbyID(int id){
+		for(int i=0;i<friend.size();i++){
+			if(friend.get(i).GetID()==id){
+				return friend.get(i).IsChatting();
+			}
+		}
+		return false;
+	}
+
 	public void ClearUnreadMessage(int index){
 		friend.get(index).ClearUnreadMessage();
 	}

@@ -23,10 +23,12 @@ public class ChatWindow extends JFrame{
 	private JScrollPane contentScroll;
 	private SimpleDateFormat sdf;
 	private Date date;
+	private String name;
 	private int id;
 	public ChatWindow(final FriendList friendList, final int id, String name, ArrayList<UnreadMessage> messageSet){
 		this.friendList=friendList;
 		this.id=id;
+		this.name=name;
 		sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		date=new Date();
 		idInfo=new JLabel("    "+((Integer)id).toString());
@@ -97,5 +99,12 @@ public class ChatWindow extends JFrame{
 				System.out.println(friendList);
 			}
 		});
+	}
+
+	public void addMessage(UnreadMessage message){
+		Date messageDate=new Date(message.time);
+		contents.append(name+ "  " +sdf.format(messageDate)+"\n\n");
+		contents.append("   "+message.content+"\n\n");
+		contents.setCaretPosition(contents.getText().length());		
 	}
 }
