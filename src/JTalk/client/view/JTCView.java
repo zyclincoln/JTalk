@@ -31,7 +31,10 @@ public class JTCView{
 		mainWindow.setSize(200,500);
 		mainWindow.setLocationRelativeTo(null);
 		mainWindow.setVisible(false);
+		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
+	public 
 
 	public void setLoginVisible(boolean show){
 		loginWindow.setVisible(show);
