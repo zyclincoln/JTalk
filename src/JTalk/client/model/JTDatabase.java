@@ -21,7 +21,7 @@ public class JTDatabase {
 
 	public void AddAccount(int id, HashMap<Integer, String> friends) {
 		try {
-			statement.executeUpdate("CREATE TABLE Friend" + id + " (id int, name char(20), has_unread int, primary key(id))");
+			statement.executeUpdate("create table Friend" + id + " (id int, name char(20), unread_num int, primary key(id))");
 			System.out.println("Account " + id + " added");
 		} catch(Exception e) {
 			System.out.println(e);
@@ -43,7 +43,7 @@ public class JTDatabase {
 	public void AddFriend(int id, int friend_id, String friend_name) {
 		try {
 			statement.executeUpdate("insert into Friend" + id + " values(" + friend_id + ", '" + friend_name + "', 0)");
-			statement.executeUpdate("create table Message" + id + "_" + friend_id + " (type int, time bigint, content varchar(255), unread int)");
+			statement.executeUpdate("create table Message" + id + "_" + friend_id + " (type int, time bigint, content varchar(255), is_unread int)");
 			System.out.println(id + "'s friend " + friend_id + " added");
 		} catch(Exception e) {
 			System.out.println(e);
@@ -53,7 +53,7 @@ public class JTDatabase {
 	public void AddMessage(int id, OfflineMessage offline_message) {
 		try {
 			statement.executeUpdate("insert into Message" + id + "_" + offline_message.sender_id + " values(" + offline_message.type + ", " + offline_message.time + ", '" + offline_message.content + "', 1)");
-			statement.executeUpdate("update Friend" + id + " set has_unread = 1 where id = " + offline_message.sender_id);
+			statement.executeUpdate("update Friend" + id + " set unread_num = unread_num + 1 where id = " + offline_message.sender_id);
 			System.out.println(id + "'s message from " + offline_message.sender_id + " added");
 		} catch(Exception e) {
 			System.out.println(e);
@@ -63,9 +63,9 @@ public class JTDatabase {
 	public HashMap<Integer, Boolean> GetMessageState(int id) {
 		try {
 			HashMap<Integer, Boolean> map = new HashMap<Integer, Boolean>();
-			ResultSet result = statement.executeQuery("select id, has_unread from Friend" + id);
+			ResultSet result = statement.executeQuery("select id, unread_num from Friend" + id);
 			while(result.next()) {
-				map.put(result.getInt("id"), result.getInt("has_unread") == 1);
+				map.put(result.getInt("id"), result.getInt("unread_num") == 1);
 			}
 			System.out.println(id + "'s messages' state got");
 			return map;
@@ -75,14 +75,24 @@ public class JTDatabase {
 		}
 	}
 
+	public int GetUnreadMessageNum(int id, int friend_id) {
+		try {
+			ResultSet result = statement.executeQuery("select unread_num from Friend" + id + " where id = " + friend_id);
+			return result.getInt("unread_num");
+		} catch(Exception e) {
+			System.out.println(e);
+			return 0;
+		}
+	}
+
 	public ArrayList<UnreadMessage> GetUnreadMessage(int id, int friend_id) {
 		try {
 			ArrayList<UnreadMessage> al = new ArrayList<UnreadMessage>();
-			ResultSet result = statement.executeQuery("select * from Message" + id + "_" + friend_id + " where unread = 1");
+			ResultSet result = statement.executeQuery("select * from Message" + id + "_" + friend_id + " where is_unread = 1");
 			while(result.next()) {
 				al.add(new UnreadMessage(result.getInt("type"), result.getLong("time"), result.getString("content")));
 			}
-			statement.executeUpdate("update Message" + id + "_" + friend_id + " set unread = 0 where unread = 1");
+			statement.executeUpdate("update Message" + id + "_" + friend_id + " set is_unread = 0 where is_unread = 1");
 			System.out.println(id + "'s unread messages from " + friend_id + " got");
 			Comparator<UnreadMessage> comparator = new Comparator<UnreadMessage>() {
 				public int compare(UnreadMessage um1, UnreadMessage um2) {
@@ -133,7 +143,7 @@ public class JTDatabase {
 		Iterator it = m.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry entry = (Map.Entry) it.next();
-			System.out.println("MessageState: id: " + entry.getKey() + " has_unread: " + entry.getValue());
+			System.out.println("MessageState: id: " + entry.getKey() + " unread_num: " + entry.getValue());
 		}
 		ArrayList<UnreadMessage> al = db.GetUnreadMessage(1, 4);
 		Iterator<UnreadMessage> iterator = al.iterator();

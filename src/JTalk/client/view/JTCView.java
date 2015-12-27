@@ -26,7 +26,7 @@ public class JTCView{
 	}
 
 	public void createMainWindow(int id, String name, FriendList friendList, FriendChooseListener friendChooseListener){
-		mainWindow=new MainWindow(10000,"administrator",friendList,friendChooseListener);
+		mainWindow=new MainWindow(id,name,friendList,friendChooseListener);
 		mainWindow.setTitle("JTalk");
 		mainWindow.setSize(200,500);
 		mainWindow.setLocationRelativeTo(null);

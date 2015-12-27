@@ -17,7 +17,7 @@ public class LoginWindow extends JFrame{
 	private JButton signup;
 	private JButton login;
 	public LoginWindow(ActionListener loginListener, ActionListener signupListener){
-		userID= new JTextField(20); 
+		userID= new JTextField(20);
 		userPassword=new JPasswordField(20);
 		pwPanel=new JPanel();
 		idPanel=new JPanel();
@@ -26,7 +26,9 @@ public class LoginWindow extends JFrame{
 		signup=new JButton("Sign Up");
 		buttonPanel=new JPanel();
 		serverIP=new JTextField(15);
+		serverIP.setText("127.0.0.1");
 		serverPort=new JTextField(6);
+		serverPort.setText("8086");
 		serverPanel=new JPanel();
 
 		idPanel.setLayout(new BoxLayout(idPanel,BoxLayout.X_AXIS));

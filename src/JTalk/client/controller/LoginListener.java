@@ -12,6 +12,7 @@ public class LoginListener implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
+		view.controller.setMe(Integer.parseInt(view.loginWindow.userID.getText()));
 		view.controller.sender.setSocket(view.loginWindow.serverIP.getText(), Integer.parseInt(view.loginWindow.serverPort.getText()));
 		view.controller.Deliver(
 			new CPLoginReq(
