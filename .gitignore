@@ -1,3 +1,4 @@
 *.class
 src/Makefile
 src/CDB/
+src/derby.log
