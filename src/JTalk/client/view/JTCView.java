@@ -8,10 +8,12 @@ import JTalk.util.*;
 
 
 public class JTCView{
+	public JTController controller;
 	public LoginWindow loginWindow;
 	public SignupWindow signupWindow;
 	public MainWindow mainWindow;
-	public JTCView(ActionListener loginListener, ActionListener signupListener,ActionListener signupConfirm){
+	public JTCView(JTController controller, ActionListener loginListener, ActionListener signupListener,ActionListener signupConfirm){
+		this.controller = controller;
 		loginWindow=new LoginWindow(loginListener,signupListener);
 		signupWindow=new SignupWindow(signupConfirm);
 		loginWindow.setTitle("JTalk");
@@ -28,7 +30,7 @@ public class JTCView{
 	public void createMainWindow(int id, String name, FriendList friendList, FriendChooseListener friendChooseListener){
 		mainWindow=new MainWindow(10000,"administrator",friendList,friendChooseListener);
 		mainWindow.setTitle("JTalk");
-		mainWindow.setSize(200,900);
+		mainWindow.setSize(200,500);
 		mainWindow.setLocationRelativeTo(null);
 		mainWindow.setVisible(false);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,6 +55,11 @@ public class JTCView{
 	public void setMainWindowVisible(boolean show){
 		mainWindow.setVisible(show);
 	}
+
+	public void showMessage(String message, String title) {
+		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+	}
+
 /*
 	public static void main(String[] args){
 		LoginListener loginListener=new LoginListener();
