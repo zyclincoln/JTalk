@@ -42,8 +42,17 @@ public class MainWindow extends JFrame {
 
 		friendList.setSelectedIndex(0);
 		friendList.addMouseListener(chooseFriend);
-		
+
+		addWindowListener(new WindowAdapter(){
+			public void windowClosed(WindowEvent event){
+
+			}
+			public void windowClosing(WindowEvent event){
+
+			}
+		});
 	}
+
 	public JList getListView(){
 		return friendList;
 	}

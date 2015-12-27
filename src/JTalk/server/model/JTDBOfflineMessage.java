@@ -12,6 +12,7 @@ class JTDBOfflineMessage {
 	private PreparedStatement statement_get_message;
 	private PreparedStatement statement_add_message;
 	private PreparedStatement statement_delete_message;
+	private PreparedStatement statement_clear_message;
 
 	JTDBOfflineMessage(Connection connection) {
 		this.connection = connection;
@@ -19,6 +20,7 @@ class JTDBOfflineMessage {
 			this.statement_get_message = connection.prepareStatement("select * from OfflineMessage?");
 			this.statement_add_message = connection.prepareStatement("insert into OfflineMessage? values(?, ?, ?, ?, ?)");
 			this.statement_delete_message = connection.prepareStatement("delete from OfflineMessage? where message_id = ?");
+			this.statement_clear_message = connection.prepareStatement("delete from OfflineMessage?");
 		} catch(Exception exception) {
 			System.out.println(exception);
 		}
@@ -83,6 +85,21 @@ class JTDBOfflineMessage {
 			}
 		} catch(Exception exception) {
 			return new DeleteMessageResult(2, exception + "");
+		}
+	}
+
+	ClearMessageResult ClearMessage(int id) {
+		try {
+			ResultSet result_set = connection.getMetaData().getTables(null, null, "OfflineMessage" + id, null );
+			if(result_set.next()) {
+				statement_clear_message.setInt(1, id);
+				statement_clear_message.executeUpdate();
+				return new ClearMessageResult(0, null);
+			} else {
+				return new ClearMessageResult(1, null);
+			}
+		} catch(Exception exception) {
+			return new ClearMessageResult(2, exception + "");
 		}
 	}
 

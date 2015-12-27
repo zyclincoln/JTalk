@@ -72,6 +72,10 @@ public class JTDatabase{
 		return OfflineMessage.DeleteMessage(id,message_id);
 	}
 
+	public ClearMessageResult ClearMessage(int id) {
+		return OfflineMessage.ClearMessage(id);
+	}
+
 	public JTDBTerminateResult Terminate(){
 		JTDBTerminateResult result=new JTDBTerminateResult();
 		result.result_number=0;

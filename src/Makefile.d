@@ -16,7 +16,7 @@ CLIENT_CONTROLLER = $(CLIENT)controller/
 
 DIR = $(ROOT) $(UTIL) $(SERVER) $(SERVER_UTIL) $(SERVER_MODEL) $(SERVER_VIEW) $(SERVER_CONTROLLER) $(CLIENT) $(CLIENT_UTIL) $(CLIENT_MODEL) $(CLIENT_VIEW) $(CLIENT_CONTROLLER)
 
-TARGET = $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5) $(TARGET7) $(TARGET9) $(TARGET10) $(TARGET11)
+TARGET = $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5) $(TARGET7) $(TARGET8) $(TARGET10) $(TARGET11) $(TARGET12)
 
 TARGET1 =
 
@@ -62,19 +62,27 @@ TARGET5 = $(SERVER_MODEL)JTDBAccount.class\
 
 TARGET6 =
 
-TARGET7 = $(CLIENT)JTClient.class
+TARGET7 = $(SERVER_CONTROLLER)JTCJobManager.class\
+			$(SERVER_CONTROLLER)JTCListener.class\
+			$(SERVER_CONTROLLER)JTCLoginoutManager.class\
+			$(SERVER_CONTROLLER)JTCMessageManager.class\
+			$(SERVER_CONTROLLER)JTCMessageReceivedManager.class\
+			$(SERVER_CONTROLLER)JTController.class\
+			$(SERVER_CONTROLLER)JTCSignupManager.class
 
-TARGET8 =
+TARGET8 = $(CLIENT)JTClient.class
 
-TARGET9 = $(CLIENT_MODEL)JTDatabase.java
+TARGET9 =
 
-TARGET10 = $(CLIENT_VIEW)LoginWindow.class\
+TARGET10 = $(CLIENT_MODEL)JTDatabase.class
+
+TARGET11 = $(CLIENT_VIEW)LoginWindow.class\
 			$(CLIENT_VIEW)JTCView.class\
 			$(CLIENT_VIEW)SignupWindow.class\
 			$(CLIENT_VIEW)FriendListRender.class\
 			$(CLIENT_VIEW)MainWindow.class
 
-TARGET11 = $(CLIENT_CONTROLLER)JTController.class\
+TARGET12 = $(CLIENT_CONTROLLER)JTController.class\
 			$(CLIENT_CONTROLLER)LoginListener.class\
 			$(CLIENT_CONTROLLER)SignupListener.class\
 			$(CLIENT_CONTROLLER)SignupConfirmListener.class\
@@ -98,7 +106,7 @@ $(TARGET5): $(@:%.class=%.java)
 $(TARGET7): $(@:%.class=%.java)
 	@ javac $(@:%.class=%.java)
 
-$(TARGET9): $(@:%.class=%.java)
+$(TARGET8): $(@:%.class=%.java)
 	@ javac $(@:%.class=%.java)
 
 $(TARGET10): $(@:%.class=%.java)
@@ -107,11 +115,17 @@ $(TARGET10): $(@:%.class=%.java)
 $(TARGET11): $(@:%.class=%.java)
 	@ javac $(@:%.class=%.java)
 
+$(TARGET12): $(@:%.class=%.java)
+	@ javac $(@:%.class=%.java)
+
 server:
 	@ java $(LIB) $(SERVER)JTServer
 
 client:
 	@ java $(LIB) $(CLIENT)JTClient
+
+r:
+	@ rm -f $(SERVER)JTServer.class $(CLIENT)JTClient.class $(CLIENT_CONTROLLER)JTController.class
 
 clean:
 	@ rm -f $(DIR:%=%*.class)

@@ -1,6 +1,6 @@
 drop database JTalk;
 
-create database JTalk;
+create database JTalk DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 use JTalk;
 
@@ -13,7 +13,7 @@ create table Account(
 	primary key (ID)
 );
 
-insert into Account values(1, "1", "one", "1", "1");
+insert into Account values(1, "1", "我是one", "1", "1");
 create table Friend1 (
 	id int primary key
 );
@@ -35,7 +35,7 @@ insert into OfflineMessage1 values(0, 3, 3, 3, "hi3");
 
 
 
-insert into Account values(2, "2", "two", "2", "2");
+insert into Account values(2, "2", "我是two", "2", "2");
 create table Friend2 (
 	id int primary key
 );
@@ -51,7 +51,7 @@ insert into Friend2 values(3);
 
 
 
-insert into Account values(3, "3", "three", "3", "3");
+insert into Account values(3, "3", "我是three", "3", "3");
 create table Friend3 (
 	id int primary key
 );
