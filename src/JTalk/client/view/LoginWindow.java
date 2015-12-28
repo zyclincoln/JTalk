@@ -32,7 +32,7 @@ public class LoginWindow extends JFrame{
 		serverPanel=new JPanel();
 
 		idPanel.setLayout(new BoxLayout(idPanel,BoxLayout.X_AXIS));
-		idPanel.add(new JLabel("User ID              "));
+		idPanel.add(new JLabel("User ID        "));
 		idPanel.add(Box.createHorizontalStrut(20));
 		idPanel.add(userID);
 
