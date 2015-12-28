@@ -28,7 +28,7 @@ public class LoginWindow extends JFrame{
 		serverIP=new JTextField(15);
 		serverIP.setText("127.0.0.1");
 		serverPort=new JTextField(6);
-		serverPort.setText("8086");
+		serverPort.setText("10086");
 		serverPanel=new JPanel();
 
 		idPanel.setLayout(new BoxLayout(idPanel,BoxLayout.X_AXIS));

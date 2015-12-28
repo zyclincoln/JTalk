@@ -17,7 +17,7 @@ public class JTController {
 
 	public JTController() {
 		database = new JTDatabase();
-		sender = new Sender("127.0.0.1", 8086);
+		sender = new Sender("127.0.0.1", 10086);
 		LoginListener loginListener = new LoginListener();
 		SignupListener signupListener = new SignupListener();
 		SignupConfirmListener signupConfirmListener = new SignupConfirmListener();

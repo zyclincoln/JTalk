@@ -15,7 +15,7 @@ public class JTCListener implements Runnable{
 	public JTCListener(JTCSignupManager signupManager, JTCLoginoutManager loginoutManager,
 	 JTCMessageManager messageManager, JTCMessageReceivedManager messageReceiveManager){
 		try{
-			serverSocket=new ServerSocket(8086);
+			serverSocket=new ServerSocket(10086);
 		}
 		catch(IOException e){
 			System.out.println("Fatal: JTCListener initial failed."+e);
