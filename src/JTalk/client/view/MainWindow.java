@@ -42,6 +42,22 @@ public class MainWindow extends JFrame {
 		setLayout(new BorderLayout());
 		add(holdPanel,BorderLayout.CENTER);
 
+
+
+		JPanel addFriendPanel = new JPanel();;
+		JTextField friendID = new JTextField("Friend ID", 10);;
+		JButton addFrinedButton = new JButton("Add");
+		addFriendPanel.add(friendID);
+		addFriendPanel.add(addFrinedButton);
+		addFrinedButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				friendID.getText();
+			}
+		});
+		add(addFriendPanel, BorderLayout.SOUTH);
+
+
+
 		friendList.setSelectedIndex(0);
 		friendList.addMouseListener(chooseFriend);
 
