@@ -8,6 +8,7 @@ import java.util.*;
 import java.awt.event.*;
 import java.text.*;
 import javax.swing.border.*;
+import java.util.Calendar;
 
 public class ChatWindow extends JFrame{
 	private JTCView view;
@@ -23,7 +24,6 @@ public class ChatWindow extends JFrame{
 	private JScrollPane sendScroll;
 	private JScrollPane contentScroll;
 	private SimpleDateFormat sdf;
-	private Date date;
 	private String name;
 	private int id;
 	public ChatWindow(JTCView view, final FriendList friendList, final int id, String name, ArrayList<UnreadMessage> messageSet){
@@ -32,7 +32,6 @@ public class ChatWindow extends JFrame{
 		this.id=id;
 		this.name=name;
 		sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		date=new Date();
 		idInfo=new JLabel("    "+((Integer)id).toString());
 		nameInfo=new JLabel("    "+name);
 		contents=new JTextArea();
@@ -74,8 +73,8 @@ public class ChatWindow extends JFrame{
 		send.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				String content = sendContents.getText();
-				long time = date.getTime();
-				contents.append("Me  "+sdf.format(date.getTime())+"\n\n");
+				long time = Calendar.getInstance().getTimeInMillis();
+				contents.append("Me  "+sdf.format(time)+"\n\n");
 				contents.append("   "+content+"\n\n");
 				contents.setCaretPosition(contents.getText().length());
 				sendContents.setText("");

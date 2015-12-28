@@ -26,12 +26,12 @@ create table OfflineMessage1 (
 );
 insert into Friend1 values(2);
 insert into Friend1 values(3);
-insert into OfflineMessage1 values(0, 2, 1, 1, "hello1");
-insert into OfflineMessage1 values(0, 2, 2, 2, "hello2");
-insert into OfflineMessage1 values(0, 2, 3, 3, "hello3");
-insert into OfflineMessage1 values(0, 3, 1, 1, "hi1");
-insert into OfflineMessage1 values(0, 3, 2, 2, "hi2");
-insert into OfflineMessage1 values(0, 3, 3, 3, "hi3");
+insert into OfflineMessage1 values(0, 2, 1, 1451304200000, "hello1");
+insert into OfflineMessage1 values(0, 2, 2, 1451304210000, "hello2");
+insert into OfflineMessage1 values(0, 2, 3, 1451304220000, "hello3");
+insert into OfflineMessage1 values(0, 3, 1, 1451304230000, "hi1");
+insert into OfflineMessage1 values(0, 3, 2, 1451304240000, "hi2");
+insert into OfflineMessage1 values(0, 3, 3, 1451304250000, "hi3");
 
 
 
